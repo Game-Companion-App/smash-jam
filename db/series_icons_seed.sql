@@ -3,7 +3,7 @@ CREATE TABLE series_icons (
   icon_image TEXT
 );
 
-INSERT INTO series_icon
+INSERT INTO series_icons
 (icon_image)
 VALUES
 ('https://smash-app.s3-us-west-1.amazonaws.com/series-icons/Mario.png'),
