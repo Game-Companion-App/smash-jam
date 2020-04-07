@@ -6,7 +6,7 @@ const massive = require('massive')
 const authCtrl = require('./controllers/authController')
 const fighterCtrl = require('./controllers/fighterController')
 const seriesCtrl = require('./controllers/seriesController')
-// .env process
+// .env
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
 
 const app = express()
