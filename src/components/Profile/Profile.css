@@ -1,0 +1,52 @@
+.profile-closed {
+  height: 60px;
+  width: 60px;
+  position: fixed;
+  transition: 1s;
+  right: 30px;
+  top: 30px;
+}
+
+.profile-open {
+  z-index: 1;
+  height: 100vh;
+  width: 300px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: 1s;
+  background-color: lightseagreen;
+}
+  .profile-pic {
+    height: 40px;
+    width: 40px;
+  }
+
+.user-info {
+  background-color: grey;
+  border: 1px solid black;
+  display: flex;
+}
+
+.auth-box {
+  background-color: lightgrey;
+  border: 1px solid black;
+}
+  .auth-links {
+    display: flex;
+    justify-content: center;
+  }
+    .auth-link-item:hover {
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+.visible {
+  opacity: 1;
+  height: 100%;
+}
+.hidden {
+  height: 0%;
+  opacity: 0;
+}
