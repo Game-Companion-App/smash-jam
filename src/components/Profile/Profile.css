@@ -5,6 +5,7 @@
   transition: 1s;
   right: 30px;
   top: 30px;
+  background-color: whitesmoke;
 }
   .profile-closed, .profile-pic {
     border: 1px solid whitesmoke;

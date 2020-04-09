@@ -1,0 +1,35 @@
+.bracket-container {
+  height: 60vh;
+  width: 100%;
+  background-color: #202020;
+  overflow: auto;
+  padding: 30px 50px;
+  display: flex;
+}
+
+  .bracket-seed-pair {
+    height: 100px;
+    width: 130px;
+    color: whitesmoke;
+  }
+    .bracket-seed-pair p {
+      padding: 0 0 0 40px;
+    }
+  .bracket-level-one {
+    height: 200px;
+    width: 130px;
+    color: whitesmoke;
+  }
+    .bracket-level-one p {
+      padding: 0 0 0 40px;
+    }
+
+.bracket-section {
+  padding: 25px 0;
+  margin: 0 0 0 -8px;
+}
+
+.chat-container {
+  height: 75vh;
+  padding: 10px 30px;
+}
