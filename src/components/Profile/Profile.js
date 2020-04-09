@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import profile_icon from '../../assets/default_profile_icon.png'
-import close_icon from '../../assets/close_icon.png'
+import profileButton from '../../assets/profile_button.png'
+import closeIcon from '../../assets/close_icon.png'
 import './Profile.css'
 
 function Profile(props) {
@@ -18,7 +18,7 @@ function Profile(props) {
     <>
 
       {/* sidebar closed */}
-      <img  src={profile_icon}
+      <img  src={profileButton}
             onClick={() => {
               setSidebarMini('100px')
               setSidebarFull('0px')
@@ -38,7 +38,7 @@ function Profile(props) {
             <p>Username</p>
             <p>email@email.com</p>
           </div>
-          <img  src={close_icon} alt='' 
+          <img  src={closeIcon} alt='' 
                 className='close-sidebar'
                 onClick={() => {
                   setSidebarFull('300px')
