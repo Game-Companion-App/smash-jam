@@ -7,7 +7,7 @@ fighter_skins INTEGER REFERENCES fighter_skins(skin_id),
 fighter_series_logo INTEGER REFERENCES series_logos(series_logo_id),
 fighter_series_icon INTEGER REFERENCES series_icons(series_icon_id),
 fighter_stats INTEGER REFERENCES fighter_stats(stats_id),
-fighter_counterpicks INTEGER
+fighter_counterpicks INTEGER REFERENCES counterpicks(counterpicks_id)
 );
 
 --Mario
