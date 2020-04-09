@@ -4,17 +4,10 @@ const session = require('express-session');
 const massive = require('massive');
 
 // controller imports
-<<<<<<< HEAD
-const authCtrl = require('./controllers/authController')
-const fighterCtrl = require('./controllers/fighterController')
-const seriesCtrl = require('./controllers/seriesController')
-const newsCtrl = require('./controllers/newsController')
-=======
 const authCtrl = require('./controllers/authController');
 const fighterCtrl = require('./controllers/fighterController');
 const skinsCtrl = require('./controllers/skinsController');
 
->>>>>>> master
 // .env
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 
@@ -50,11 +43,5 @@ app.get('/api/fighters/:id', fighterCtrl.getFighterById);
 app.get('/api/standard', fighterCtrl.getStandardFighters);
 app.get('/api/dlc', fighterCtrl.getDLCFighters);
 
-<<<<<<< HEAD
-// // SERIES LOGO & ICON ENDPOINTS
-// app.get('/api/logos', seriesCtrl.logos)
-// app.get('/api/icons', seriesCtrl.icons)
-=======
 // FIGHTER SKINS
 app.get('/api/skins/:id', skinsCtrl.getFighterSkin);
->>>>>>> master

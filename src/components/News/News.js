@@ -27,7 +27,7 @@ useEffect(props) => {
   const handleTouchEnd = e => {
 
   }
-})
+}
 
   return (
     <div style={{display: 'flex'}}>
