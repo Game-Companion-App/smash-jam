@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import default_pic from '../../assets/default_profile_icon.png'
+import profileButton from '../../assets/profile_button.png'
+import closeIcon from '../../assets/close_icon.png'
 import './Profile.css'
 
 function Profile(props) {
@@ -15,53 +16,9 @@ function Profile(props) {
   
   return (
     <>
-      {/* sidebar open */}
-      <div  className='profile-open'
-            style={{transform: `translateX(${sidebarFull})`}}
-            >
-        {/* profile header */}
-        <div className='user-info'>
-          <img  src={default_pic}
-                onClick={() => {
-                  setSidebarFull('300px')
-                  setSidebarMini('0px')
-                }}
-                alt='default profile'
-                className='profile-pic'/>
-          <div>
-            <p>Username</p>
-            <p>email@email.com</p>
-          </div>
-        </div>
-
-        {/* authentication toggle */}
-        <div className='auth-links'>
-          <p className='auth-link-item' onClick={toggleAuth}>Login</p>
-          <p>/</p>
-          <p className='auth-link-item' >Create an Account</p>
-        </div>
-          <div className={`${authVisibility}`}>
-            {authBox === 'login' ?
-                <div className={`auth-box ${authVisibility}`}>
-                  <input placeholder='Username or Email'></input>
-                  <input placeholder='Password' type='password'></input>
-                </div>
-              :
-                <div className='auth-box'>
-                  <input placeholder='Username'></input>
-                  <input placeholder='Email'></input>
-                  <input placeholder='Password' type='password'></input>
-                </div>
-            }
-          </div>
-
-        <h3>Main Character(s):</h3>
-        <p>Mario</p>
-        <p>Yoshi</p>
-      </div>
 
       {/* sidebar closed */}
-      <img  src={default_pic}
+      <img  src={profileButton}
             onClick={() => {
               setSidebarMini('100px')
               setSidebarFull('0px')
@@ -69,7 +26,78 @@ function Profile(props) {
             style={{transform: `translateX(${sidebarMini})`}}
             alt='default profile'
             className='profile-closed'/>
+    
+      {/* sidebar open */}
+      <div  className='profile-open'
+            style={{transform: `translateX(${sidebarFull})`}}>
 
+        {/* profile header */}
+        <div className='user-info'>
+          <div alt='default profile' className='profile-pic'></div>
+          <div>
+            <p>Username</p>
+            <p>email@email.com</p>
+          </div>
+          <img  src={closeIcon} alt='' 
+                className='close-sidebar'
+                onClick={() => {
+                  setSidebarFull('300px')
+                  setSidebarMini('0px')
+                }}/>
+        </div>
+
+        {/* authentication toggle */}
+        <div className='profile-links'>
+          <p  className='profile-link-item'
+              onClick={() => {
+                toggleAuth()
+                setAuthBox('login')
+              }}>Login</p>
+          <p>/</p>
+          <p  className='profile-link-item'
+              onClick={() => {
+                toggleAuth()
+                setAuthBox('register')
+              }}>Sign Up</p>
+        </div>
+          <div className={`${authVisibility}`}>
+            {authBox === 'login' ?
+                <div className={`auth-box login ${authVisibility}`}>
+                  <div>Username:</div> <input placeholder='Username or Email'></input>
+                  <div>Password:</div> <input placeholder='Password' type='password'></input>
+                </div>
+              :
+                <div className={`auth-box register ${authVisibility}`}>
+                  <div>Username:</div> <input placeholder='Username'></input>
+                  <div>Email:</div> <input placeholder='Email'></input>
+                  <div>Password:</div> <input placeholder='Password' type='password'></input>
+                </div>
+            }
+          </div>
+
+        {/* my tournaments */}
+        <div className='profile-links'>
+          <p  className='profile-link-item'
+              // onClick={() => {}}
+          >My Tournaments</p>
+        </div>
+
+        {/* main characters */}
+        <p className='section'>Main Character(s):</p>
+        <div className='mains'>
+          <img className='main-pics' alt=''/>
+          <p>Mario</p>
+        </div>
+        <div className='mains'>
+          <img className='main-pics' alt=''/>
+          <p>Yoshi</p>
+        </div>
+
+        {/* user stats */}
+        <p className='section'>Stats:</p>
+
+
+      </div>
     </>
   );
 }

@@ -1,0 +1,50 @@
+.bracket-container {
+  height: 60vh;
+  width: 100%;
+  background-color: #202020;
+  overflow: auto;
+  padding: 30px 50px;
+  display: flex;
+}
+
+  .bracket-round-one, .bracket-round-two, .bracket-round-three, .bracket-round-four, .bracket-round-five, .bracket-round-six {
+    height: 100px;
+    width: 170px;
+    color: whitesmoke;
+  }
+    .bracket-round-one p, .bracket-round-two p, .bracket-round-three p, .bracket-round-four p, .bracket-round-five p, .bracket-round-six p {
+      padding: 0 0 0 30px;
+    }
+  .bracket-level-one { height: 200px; }
+  .bracket-level-two { height: 400px; }
+  .bracket-level-three { height: 800px; }
+  .bracket-level-four { height: 1600px; }
+  .bracket-level-five { height: 3200px; }
+
+
+.bracket-section-one, .bracket-section-two, .bracket-section-three, .bracket-section-four, .bracket-section-five {
+  padding: 25px 0;
+  margin: 0 0 0 -8px;
+}
+.bracket-section-two { padding: 75px 0; }
+.bracket-section-three { padding: 175px 0; }
+.bracket-section-four { padding: 375px 0; }
+.bracket-section-five { padding: 675px 0; }
+
+.fighter-img {
+  display: flex;
+  flex-direction: column;
+  height: 0;
+}
+.fighter-img img {
+  z-index: 1;
+  height: 55px;
+  width: 55px;
+  margin: -3px 0 -3px -25px;
+}
+
+
+.chat-container {
+  height: 75vh;
+  padding: 10px 30px;
+}
