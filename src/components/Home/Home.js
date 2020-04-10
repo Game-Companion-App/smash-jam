@@ -1,9 +1,16 @@
-import React from 'react'
+import React from 'react';
+import './Home.css';
 
 export default function Home() {
-  return (
-    <div>
-      Home
-    </div>
-  )
+	return (
+		<div>
+			<div className="slideshow">
+				<div className="images" />
+				<img src="https://smash-app.s3-us-west-1.amazonaws.com/panoramic.png" />
+			</div>
+			<div className="nav-section">
+				<img className="logo" src="https://smash-app.s3-us-west-1.amazonaws.com/Smash+Bros+Logo.png" />
+			</div>
+		</div>
+	);
 }
