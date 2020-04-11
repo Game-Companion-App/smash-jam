@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	max-width: initial;
 }
 
 .slideshow {
@@ -10,7 +11,7 @@
 }
 
 .images {
-	background: url(../../assets/panoramic.png);
+	background: url(https://smash-app.s3-us-west-1.amazonaws.com/panoramic.png);
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -36,10 +37,29 @@
 
 .nav-section {
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
+	margin-top: -180px;
+	z-index: 10;
+	position: relative;
 }
 
 .logo {
 	height: 375px;
 	width: 700px;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 400px;
+}
+
+.nav-button {
+	border: 4px black solid;
+	height: 150px;
+	width: 150px;
+	background-color: white;
+	color: black;
+	font-size: 1.3rem;
 }
