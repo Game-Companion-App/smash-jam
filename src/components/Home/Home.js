@@ -1,5 +1,5 @@
 import React from 'react';
-import News from '../News'
+import News from '../News/News'
 import './Home.css';
 
 export default function Home() {
