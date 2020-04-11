@@ -1,4 +1,5 @@
 import React from 'react';
+import News from '../News'
 import './Home.css';
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
 			<div className="nav-section">
 				<img className="logo" src="https://smash-app.s3-us-west-1.amazonaws.com/Smash+Bros+Logo.png" />
 			</div>
+      <News />
 		</div>
 	);
 }
