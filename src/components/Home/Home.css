@@ -1,0 +1,45 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.slideshow {
+	position: relative;
+	overflow: hidden;
+}
+
+.images {
+	background: url(../../assets/panoramic.png);
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 300%;
+	animation: slideshow 100s linear infinite;
+	transform: translate3d(0, 0, 0);
+}
+@keyframes slideshow {
+	0% {
+		left: 0;
+	}
+	100% {
+		left: -200%;
+	}
+}
+
+@keyframes moveSlideshow {
+	100% {
+		-webkit-transform: translateX(-200%);
+	}
+}
+
+.nav-section {
+	display: flex;
+	justify-content: center;
+}
+
+.logo {
+	height: 375px;
+	width: 700px;
+}
