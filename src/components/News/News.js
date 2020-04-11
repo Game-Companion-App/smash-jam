@@ -22,7 +22,7 @@ function News() {
       .catch((err) => console.log(err));
   }, []);
 
-    console.log(feed)
+    
 
   let newFeed = feed.map((e, i) => {
     
