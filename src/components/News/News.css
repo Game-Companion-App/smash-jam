@@ -1,0 +1,32 @@
+.article-description {
+  overflow: hidden;
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  width: 100%;
+
+}
+
+.control-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-body {
+  height: 320px;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+}
+
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: inherit;
+}

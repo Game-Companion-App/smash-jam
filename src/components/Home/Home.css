@@ -1,65 +1,87 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	max-width: initial;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* max-width: initial; */
+  font-family: "Bangers", cursive;
 }
 
 .slideshow {
-	position: relative;
-	overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
 .images {
-	background: url(https://smash-app.s3-us-west-1.amazonaws.com/panoramic.png);
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 300%;
-	animation: slideshow 100s linear infinite;
-	transform: translate3d(0, 0, 0);
+  background: url(https://smash-app.s3-us-west-1.amazonaws.com/panoramic.png);
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 300%;
+  animation: slideshow 100s linear infinite;
+  transform: translate3d(0, 0, 0);
 }
 @keyframes slideshow {
-	0% {
-		left: 0;
-	}
-	100% {
-		left: -200%;
-	}
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -200%;
+  }
 }
 
 @keyframes moveSlideshow {
-	100% {
-		-webkit-transform: translateX(-200%);
-	}
+  100% {
+    -webkit-transform: translateX(-200%);
+  }
 }
 
 .nav-section {
-	display: flex;
-	justify-content: space-evenly;
-	margin-top: -180px;
-	z-index: 10;
-	position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: -180px;
+  z-index: 10;
+  position: relative;
 }
 
 .logo {
-	height: 375px;
-	width: 700px;
+  height: 375px;
+  width: 700px;
 }
 
 .nav {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
 }
 
 .nav-button {
-	border: 4px black solid;
-	height: 150px;
-	width: 150px;
-	background-color: white;
-	color: black;
-	font-size: 1.3rem;
+  border: 4px black solid;
+  border-radius: 50%;
+  height: 160px;
+  width: 160px;
+  color: white;
+  font-size: 1.3rem;
+  background: repeating-linear-gradient(
+    -55deg,
+    #222,
+    #222 5px,
+    #333 5px,
+    #333 10px
+  );
+}
+
+.button-icon {
+  height: 80px;
+  width: 80px;
+  margin-bottom: 5px;
+}
+
+.game-info {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 50px 270px;
+  color: dodgerblue;
 }
