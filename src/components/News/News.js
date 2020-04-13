@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import Carousel from "react-bootstrap/Carousel";
 import axios from "axios";
 import "./News.css";
-import Carousel from "react-bootstrap/Carousel";
 
 // const { NEWS_API_KEY } = process.env;
 
@@ -25,16 +25,18 @@ function News() {
     
 
   let newFeed = feed.map((e, i) => {
-    
-    for(let i = 0; i < feed.length; i++) {
-      for(let j = i + 1; j < feed.length; j++){
-        if(feed[i].urlToImage === null || feed[i].title === feed[j].title || feed[i].url.includes('youtube')) {
-          feed.splice(i, 1)
-        } 
-      } 
+    for (let i = 0; i < feed.length; i++) {
+      for (let j = i + 1; j < feed.length; j++) {
+        if (
+          feed[i].urlToImage === null ||
+          feed[i].title === feed[j].title ||
+          feed[i].url.includes("youtube")
+        ) {
+          feed.splice(i, 1);
+        }
+      }
     }
     return (
-
       <Carousel.Item>
         <div className="article-body">
         <a href={e.url} target="_blank">
@@ -48,14 +50,10 @@ function News() {
   });
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center'}}>
-    <Carousel
-      activeIndex={index}
-      onSelect={handleSelect}
-      fade={true}
-    >
-      {newFeed}
-    </Carousel>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Carousel activeIndex={index} onSelect={handleSelect} fade={true}>
+        {newFeed}
+      </Carousel>
     </div>
   );
 }
