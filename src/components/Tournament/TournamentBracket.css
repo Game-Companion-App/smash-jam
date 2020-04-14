@@ -2,26 +2,49 @@
   position: relative;
   width: 100%;
   background-color: #202020;
-  padding: 30px 50px;
+  padding: 70px 30px;
   display: flex;
   max-height: 3300px;
 }
-  .bracket-round-container {
-    display: flex;
-    flex-direction: column;
-  }
-  .bracket-round-one, .bracket-round-two, .bracket-round-three, .bracket-round-four, .bracket-round-five, .bracket-round-six, .bracket-round-seven {
-    width: 170px;
-    height: 60px;
-    margin: 20px 0;
-  }
-  .bracket-round-two { height: 110px; margin: 45px 0 45px -10px; }
-  .bracket-round-three { height: 210px; margin: 95px 0 95px -10px; }
-  .bracket-round-four { height: 410px; margin: 195px 0 195px -10px; }
-  .bracket-round-five { height: 810px; margin: 395px 0 395px -10px; }
-  .bracket-round-six { height: 1610px; margin: 795px 0 795px -10px; }
-  .bracket-round-seven { height: 20px; margin: 1595px 0 1595px -10px; }
-
+.bracket-round-container {
+  display: flex;
+  flex-direction: column;
+}
+.bracket-round-one,
+.bracket-round-two,
+.bracket-round-three,
+.bracket-round-four,
+.bracket-round-five,
+.bracket-round-six,
+.bracket-round-seven {
+  width: 170px;
+  height: 60px;
+  margin: 20px 0;
+}
+.bracket-round-two {
+  height: 110px;
+  margin: 45px 0 45px -10px;
+}
+.bracket-round-three {
+  height: 210px;
+  margin: 95px 0 95px -10px;
+}
+.bracket-round-four {
+  height: 410px;
+  margin: 195px 0 195px -10px;
+}
+.bracket-round-five {
+  height: 810px;
+  margin: 395px 0 395px -10px;
+}
+.bracket-round-six {
+  height: 1610px;
+  margin: 795px 0 795px -10px;
+}
+.bracket-round-seven {
+  height: 20px;
+  margin: 1595px 0 1595px -10px;
+}
 
 .fighter-container {
   position: absolute;
@@ -29,29 +52,65 @@
   display: flex;
   max-height: 3300px;
 }
-  .fighters-round-container { color: whitesmoke; }
-  .fighters-round-one, .fighters-round-two, .fighters-round-three, .fighters-round-four, .fighters-round-five, .fighters-round-six, .fighters-round-seven {
-    position: relative;
-    height: 50px;
-    width: 100px;
-    margin-left: 30px;
-  }
-  .fighters-round-two { margin: 25px 0 50px 62px;}
-  .fighters-round-three { margin: 75px 0 150px 60px;}
-  .fighters-round-four { margin: 175px 0 350px 60px;}
-  .fighters-round-five { margin: 375px 0 750px 60px;}
-  .fighters-round-six { margin: 775px 0 1550px 60px;}
-  .fighters-round-seven { margin: 1580px 0 0 60px;}
-  .fighter-img {
-    position: absolute;
-    z-index: 1;
-    height: 55px;
-    width: 55px;
-    margin: -3px 0 0 -55px;
-  }
-
+.fighters-round-container {
+  color: whitesmoke;
+}
+.fighters-round-one,
+.fighters-round-two,
+.fighters-round-three,
+.fighters-round-four,
+.fighters-round-five,
+.fighters-round-six,
+.fighters-round-seven {
+  position: relative;
+  height: 50px;
+  width: 100px;
+  margin-left: 30px;
+}
+.fighters-round-two {
+  margin: 25px 0 50px 62px;
+}
+.fighters-round-three {
+  margin: 75px 0 150px 60px;
+}
+.fighters-round-four {
+  margin: 175px 0 350px 60px;
+}
+.fighters-round-five {
+  margin: 375px 0 750px 60px;
+}
+.fighters-round-six {
+  margin: 775px 0 1550px 60px;
+}
+.fighters-round-seven {
+  margin: 1580px 0 0 60px;
+}
+.fighter-img {
+  position: absolute;
+  z-index: 1;
+  height: 55px;
+  width: 55px;
+  margin: -3px 0 0 -55px;
+}
 
 .chat-container {
   height: 10vh;
   padding: 10px 30px;
+}
+
+.home-button {
+  height: 50px;
+  width: 85px;
+  background-color: red;
+  color: white;
+  font-size: 1.2rem;
+  position: fixed;
+  z-index: 15;
+}
+
+.home-icon {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  padding-bottom: 2.7px;
 }
