@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Chat from '../Chat/Chat'
 import './TournamentBracket.css'
 
 function TournamentBracket(props) {
@@ -236,7 +237,7 @@ function TournamentBracket(props) {
 
       {/* chat container */}
       <div className='chat-container'>
-        chat here
+        <Chat />
       </div>
     </>
   );
