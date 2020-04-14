@@ -39,10 +39,7 @@ function News() {
         <div className="article-body">
           <a href={e.url} target="_blank">
             <h3 style={{ fontSize: ".9rem" }}>{e.title}</h3>
-            <img
-              src={e.urlToImage}
-              style={{ height: "200px", width: "100%" }}
-            />
+            <img src={e.urlToImage} style={{ height: "33%", width: "100%" }} />
             <p className="article-description">{e.description}</p>
           </a>
         </div>
