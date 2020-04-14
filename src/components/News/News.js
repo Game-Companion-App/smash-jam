@@ -16,13 +16,11 @@ function News() {
   useEffect(() => {
     axios
       .get(
-        `https://newsapi.org/v2/everything?qInTitle=super AND smash AND bros AND ultimate&from=2020-03-10&sortBy=popularity&language=en&apiKey=9f1fcd95c1244f438211616327d43374`
+        `https://newsapi.org/v2/everything?qInTitle=super AND smash AND bros AND ultimate&from=2020-03-20&sortBy=popularity&language=en&apiKey=9f1fcd95c1244f438211616327d43374`
       )
       .then((res) => setFeed(res.data.articles))
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(feed);
 
   let newFeed = feed.map((e, i) => {
     for (let i = 0; i < feed.length; i++) {
