@@ -1,0 +1,4 @@
+.chat-open, .chat-closed {
+  position: fixed;
+  bottom: 0;
+}

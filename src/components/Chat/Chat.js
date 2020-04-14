@@ -23,12 +23,12 @@ export default () => {
   useEffect(()=>{
     socket.on('message que',(nick,message) => {
       setMessages(draft => {
-        draft.push([nick,message])
+        draft.unshift([nick,message])
       })
     });
 
     socket.on('update',message => setMessages(draft => {
-      draft.push(['',message]);
+      draft.unshift(['',message]);
     }));
 
     socket.on('people-list',people => {
@@ -36,13 +36,13 @@ export default () => {
       for(let person in people){
         newState.push([people[person].id,people[person].nick]);
       }
-      setOnline(draft=>{draft.push(...newState)});
+      setOnline(draft=>{draft.unshift(...newState)});
       console.log(online)
     });
 
     socket.on('add-person',(nick,id)=>{
       setOnline(draft => {
-        draft.push([id,nick])
+        draft.unshift([id,nick])
       })
     });
 
@@ -51,7 +51,7 @@ export default () => {
     });
 
     socket.on('chat message',(nick,message)=>{
-      setMessages(draft => {draft.push([nick,message])})
+      setMessages(draft => {draft.unshift([nick,message])})
     });
   },0);
 
@@ -73,7 +73,7 @@ export default () => {
   };
 
   return id ? (
-    <section style={{display:'flex',flexDirection:'row'}} >
+    <section className='chat-open'>
       <ul id="messages"><Messages data={messages} /></ul>
       <ul id="online"> &#x1f310; : <Online data={online} /> </ul>
       <div id="sendform">
@@ -83,10 +83,10 @@ export default () => {
       </div>
     </section>
   ) : (
-    <div style={{ textAlign: 'center', margin: '30vh auto', width: '70%' }}>
+    <div className='chat-closed'>
       <form onSubmit={event => handleSubmit(event)}>
-        <input id="name" onChange={e => setNameInput(e.target.value.trim())} required placeholder="What is your name .." /><br />
-        <input id="room" onChange={e => setRoom(e.target.value.trim())} placeholder="What is your room .." /><br />
+        <input id="name" onChange={e => setNameInput(e.target.value.trim())} required placeholder="Your Username" /><br />
+        <input id="room" onChange={e => setRoom(e.target.value.trim())} placeholder="Room Name" /><br />
         <button type="submit">Submit</button>
       </form>
     </div>

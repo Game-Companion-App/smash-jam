@@ -1,11 +1,10 @@
 .bracket-container {
   position: relative;
-  height: 90vh;
   width: 100%;
   background-color: #202020;
-  overflow: auto;
   padding: 30px 50px;
   display: flex;
+  max-height: 3300px;
 }
   .bracket-round-container {
     display: flex;
@@ -28,6 +27,7 @@
   position: absolute;
   z-index: 1;
   display: flex;
+  max-height: 3300px;
 }
   .fighters-round-container { color: whitesmoke; }
   .fighters-round-one, .fighters-round-two, .fighters-round-three, .fighters-round-four, .fighters-round-five, .fighters-round-six, .fighters-round-seven {
@@ -52,6 +52,6 @@
 
 
 .chat-container {
-  height: 75vh;
+  height: 10vh;
   padding: 10px 30px;
 }
