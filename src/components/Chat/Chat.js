@@ -1,70 +1,94 @@
+import React, { useState, useEffect } from 'react';
+import useSocket from 'use-socket.io-client';
+import { useImmer } from 'use-immer';
 
-import React from "react";
-import io from "socket.io-client";
+import './Chat.css';
 
-class Chat extends React.Component{
-    constructor(props){
-        super(props);
+const Messages = props => props.data.map(m => m[0] !== '' ? (<li><strong>{m[0]}</strong> : <div className="innermsg">{m[1]}</div></li>) : (<li className="update">{m[1]}</li>) );
 
-        this.state = {
-            username: '',
-            message: '',
-            messages: []
-        };
+const Online = props => props.data.map(m => <li id={m[0]}>{m[1]}</li>);
 
-        this.socket = io('localhost:4001');
+export default () => {
+  const [id, setId] = useState('');
+  const [nameInput, setNameInput] = useState('');
+  const [room, setRoom] = useState('');
+  const [input, setInput] = useState('');
 
-        this.socket.on('RECEIVE_MESSAGE', function(data){
-            addMessage(data);
-        });
+  const [socket] = useSocket('https://open-chat-naostsaecf.now.sh');
+  socket.connect();
 
-        const addMessage = data => {
-            console.log(data);
-            this.setState({messages: [...this.state.messages, data]});
-            console.log(this.state.messages);
-        };
+  const [messages, setMessages] = useImmer([]);
+  const [online, setOnline] = useImmer([]);
 
-        this.sendMessage = ev => {
-            ev.preventDefault();
-            this.socket.emit('SEND_MESSAGE', {
-                author: this.state.username,
-                message: this.state.message
-            })
-            this.setState({message: ''});
+  useEffect(()=>{
+    socket.on('message que',(nick,message) => {
+      setMessages(draft => {
+        draft.push([nick,message])
+      })
+    });
 
-        }
+    socket.on('update',message => setMessages(draft => {
+      draft.push(['',message]);
+    }));
+
+    socket.on('people-list',people => {
+      let newState = [];
+      for(let person in people){
+        newState.push([people[person].id,people[person].nick]);
+      }
+      setOnline(draft=>{draft.push(...newState)});
+      console.log(online)
+    });
+
+    socket.on('add-person',(nick,id)=>{
+      setOnline(draft => {
+        draft.push([id,nick])
+      })
+    });
+
+    socket.on('remove-person',id=>{
+      setOnline(draft => draft.filter(m => m[0] !== id))
+    });
+
+    socket.on('chat message',(nick,message)=>{
+      setMessages(draft => {draft.push([nick,message])})
+    });
+  },0);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!nameInput) {
+      return alert("Name can't be empty");
     }
-    render(){
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-4">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="card-title">Global Chat</div>
-                                <hr/>
-                                <div className="messages">
-                                    {this.state.messages.map(message => {
-                                        return (
-                                            <div>{message.author}: {message.message}</div>
-                                        )
-                                    })}
-                                </div>
+    setId(nameInput);
+    socket.emit("join", nameInput, room);
+  };
 
-                            </div>
-                            <div className="card-footer">
-                                <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/>
-                                <br/>
-                                <input type="text" placeholder="Message" className="form-control" value={this.state.message} onChange={ev => this.setState({message: ev.target.value})}/>
-                                <br/>
-                                <button onClick={this.sendMessage} className="btn btn-primary form-control">Send</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+  const handleSend = e => {
+    e.preventDefault();
+    if(input !== ''){
+      socket.emit('chat message',input,room);
+      setInput('');
     }
-}
+  };
 
-export default Chat;
+  return id ? (
+    <section style={{display:'flex',flexDirection:'row'}} >
+      <ul id="messages"><Messages data={messages} /></ul>
+      <ul id="online"> &#x1f310; : <Online data={online} /> </ul>
+      <div id="sendform">
+        <form onSubmit={e => handleSend(e)} style={{display: 'flex'}}>
+            <input id="m" onChange={e=>setInput(e.target.value.trim())} /><button style={{width:'75px'}} type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+  ) : (
+    <div style={{ textAlign: 'center', margin: '30vh auto', width: '70%' }}>
+      <form onSubmit={event => handleSubmit(event)}>
+        <input id="name" onChange={e => setNameInput(e.target.value.trim())} required placeholder="What is your name .." /><br />
+        <input id="room" onChange={e => setRoom(e.target.value.trim())} placeholder="What is your room .." /><br />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+};
