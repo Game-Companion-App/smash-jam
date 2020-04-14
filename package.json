@@ -25,6 +25,8 @@
     "react-use-gesture": "^7.0.12",
     "react-use-gestures": "^0.1.2",
     "redux-promise-middleware": "^6.1.2",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "use-gestures": "^1.0.2"
   },
   "scripts": {
