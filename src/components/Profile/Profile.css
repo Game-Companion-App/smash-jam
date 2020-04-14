@@ -3,14 +3,16 @@
   width: 60px;
   position: fixed;
   transition: 1s;
-  right: 30px;
-  top: 30px;
+  right: 5px;
+  top: 2px;
   background-color: whitesmoke;
+  z-index: 1000;
 }
-  .profile-closed, .profile-pic {
-    border: 1px solid whitesmoke;
-    border-radius: 50%;
-  }
+.profile-closed,
+.profile-pic {
+  border: 1px solid whitesmoke;
+  border-radius: 50%;
+}
 
 .profile-open {
   z-index: 1;
@@ -23,14 +25,15 @@
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 10px;
+  z-index: 10001;
 }
-  .profile-pic {
-    height: 70px;
-    width: 70px;
-    margin: 0 5px 0 0;
-    background-image: url('../../assets/buff_mario.jpg');
-    background-size: cover;
-  }
+.profile-pic {
+  height: 70px;
+  width: 70px;
+  margin: 0 5px 0 0;
+  background-image: url("../../assets/buff_mario.jpg");
+  background-size: cover;
+}
 
 .user-info {
   display: flex;
@@ -43,18 +46,18 @@
   border: 1px solid black;
   margin: 10px 0;
 }
-  .auth-box * {
-    color: black;
-    margin: 5px;
-  }
-  .profile-links {
-    display: flex;
-    margin: 0 0 5px 0;
-  }
-    .profile-link-item:hover {
-      text-decoration: underline;
-      cursor: pointer;
-    }
+.auth-box * {
+  color: black;
+  margin: 5px;
+}
+.profile-links {
+  display: flex;
+  margin: 0 0 5px 0;
+}
+.profile-link-item:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .close-sidebar {
   position: absolute;
@@ -64,7 +67,9 @@
   filter: invert(1);
 }
 
-.visible, .login, .register {
+.visible,
+.login,
+.register {
   opacity: 1;
   height: fit-content;
 }
@@ -73,7 +78,6 @@
   opacity: 0;
   overflow: hidden;
 }
-
 
 .section {
   margin: 50px 0 0 0;
