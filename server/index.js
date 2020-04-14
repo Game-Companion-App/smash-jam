@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
-const socket = require('socket.io');
 
 // controller imports
 const authCtrl = require('./controllers/authController');
@@ -34,19 +33,7 @@ massive({
 });
 
 //SOCKET.IO
-server = app.listen(4001, function(){
-    console.log('server is running on port 4001')
-});
 
-io = socket(server);
-
-io.on('connection', (socket) => {
-    console.log(socket.id);
-
-    socket.on('SEND_MESSAGE', function(data){
-        io.emit('RECEIVE_MESSAGE', data);
-    })
-});
 
 
 // AUTH ENDPOINTS
