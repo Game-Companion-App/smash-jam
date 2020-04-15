@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import "./AllFighters.css";
 
-function AllFighters(props) {
+function AllFighters() {
   const [dlcFighters, setDlcFighters] = useState([]);
   const [standardFighters, setStandardFighters] = useState([]);
 
@@ -21,8 +21,6 @@ function AllFighters(props) {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(dlcFighters);
-
   return (
     <div className="all-fighters-container">
       <Link to="/">
@@ -36,47 +34,80 @@ function AllFighters(props) {
         </button>
       </Link>
       <div className="fighters-container">
-        <div className="dlc-title">
+        <div className="title">
           <h2>DLC Fighters</h2>
         </div>
         <div className="fighters-box">
           {dlcFighters.map((dlc) => {
             return (
-              <Link to={`/fighter/${dlc.fighter_number}`}>
+              //DLC SECTION
+              <Link
+                to={`/fighter/${dlc.fighter_number}`}
+                params={{ fighterID: dlc.fighter_number }}
+              >
                 <div className="fighter-block">
-                  <h3>
-                    #{dlc.fighter_number}
-                    <br />
-                    {dlc.fighter_name}
-                  </h3>
-                  <br />
-                  <img src={dlc.icon_image} alt="" className="icon-image" />
-                  <img src={dlc.skin_1} alt="" className="fighter-image" />
+                  <div className="column-1">
+                    <h3>
+                      #{dlc.fighter_number}
+                      <br />
+                      {dlc.fighter_name}
+                    </h3>
+                    {dlc.fighter_number >= 79 && dlc.fighter_number <= 81 ? (
+                      <img
+                        src={dlc.icon_image}
+                        alt=""
+                        className="icon-image"
+                        style={{ filter: "brightness(0) invert(1)" }}
+                      />
+                    ) : (
+                      <img src={dlc.icon_image} alt="" className="icon-image" />
+                    )}
+                  </div>
+                  <div className="column-2">
+                    <img src={dlc.skin_1} alt="" className="fighter-image" />
+                  </div>
                 </div>
               </Link>
             );
           })}
         </div>
-        <div className="standard-title">
+        <div className="title">
           <h2>Standard Fighters</h2>
         </div>
         <div className="fighters-box">
           {standardFighters.map((standard) => {
             return (
-              <Link to={`/fighter/${standard.fighter_number}`}>
+              //STANDARD SECTION
+              <Link
+                to={`/fighter/${standard.fighter_number}`}
+                params={{ fighterID: standard.fighter_number }}
+              >
                 <div className="fighter-block">
                   <h3>
                     #{standard.fighter_number}
                     <br />
                     {standard.fighter_name}
                   </h3>
-                  <br />
-                  <img
-                    src={standard.icon_image}
-                    alt=""
-                    className="icon-image"
-                  />
-                  <img src={standard.skin_1} alt="" className="fighter-image" />
+                  {standard.fighter_number === 36 ? (
+                    <img
+                      src={standard.icon_image}
+                      alt=""
+                      className="snake-icon-image"
+                    />
+                  ) : (
+                    <img
+                      src={standard.icon_image}
+                      alt=""
+                      className="icon-image"
+                    />
+                  )}
+                  <div className="fighter-image-box">
+                    <img
+                      src={standard.skin_1}
+                      alt=""
+                      className="fighter-image"
+                    />
+                  </div>
                 </div>
               </Link>
             );

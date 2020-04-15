@@ -22,8 +22,6 @@ function News() {
       .catch((err) => console.log(err));
   }, []);
 
-    
-
   let newFeed = feed.map((e, i) => {
     for (let i = 0; i < feed.length; i++) {
       for (let j = i + 1; j < feed.length; j++) {
@@ -39,10 +37,10 @@ function News() {
     return (
       <Carousel.Item>
         <div className="article-body">
-        <a href={e.url} target="_blank">
-          <h3 style={{ fontSize: ".9rem" }}>{e.title}</h3>
-          <img src={e.urlToImage} style={{ height: "33%", width: "100%" }} />
-          <p className="article-description">{e.description}</p>
+          <a href={e.url} target="_blank">
+            <h3 style={{ fontSize: ".9rem" }}>{e.title}</h3>
+            <img src={e.urlToImage} style={{ height: "33%", width: "100%" }} />
+            <p className="article-description">{e.description}</p>
           </a>
         </div>
       </Carousel.Item>
