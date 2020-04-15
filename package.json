@@ -27,7 +27,9 @@
     "redux-promise-middleware": "^6.1.2",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "use-gestures": "^1.0.2"
+    "use-gestures": "^1.0.2",
+    "use-immer": "^0.4.0",
+    "use-socket.io-client": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
