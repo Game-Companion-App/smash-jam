@@ -22,6 +22,8 @@ function News() {
       .catch((err) => console.log(err));
   }, []);
 
+    
+
   let newFeed = feed.map((e, i) => {
     for (let i = 0; i < feed.length; i++) {
       for (let j = i + 1; j < feed.length; j++) {
@@ -35,22 +37,27 @@ function News() {
       }
     }
     return (
-      <Carousel.Item>
+      <Carousel.Item>	
+        <a href={e.url} target="_blank">
         <div className="article-body">
-          <a href={e.url} target="_blank">
-            <h3 style={{ fontSize: ".9rem" }}>{e.title}</h3>
-            <img src={e.urlToImage} style={{ height: "33%", width: "100%" }} />
-            <p className="article-description">{e.description}</p>
-          </a>
+        <div className="article-block">
+          <h3 className="article-title">{e.title}</h3>
+          <img src={e.urlToImage} className='article-image' />
+          <p className="article-description">{e.description}</p>
+          </div>
+            <p style={{color: 'white'}}>powered by NewsAPI.org</p>
         </div>
+          </a>
+          
       </Carousel.Item>
     );
   });
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Carousel activeIndex={index} onSelect={handleSelect} fade={true}>
-        {newFeed}
+      <Carousel activeIndex={index} onSelect={handleSelect} fade={true} indicators={false} className='carousel'>
+       {newFeed}
+    
       </Carousel>
     </div>
   );

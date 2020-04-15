@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Chat from "../Chat/Chat";
+import {Link, withRouter} from 'react-router-dom'
 import "./TournamentBracket.css";
 
 function TournamentBracket(props) {
