@@ -6,29 +6,50 @@ import "./Fighter.css";
 
 function Fighter(props) {
   const [fighter, setFighter] = useState({});
-  // const [strong, setStrong] = useState([]);
+  const [strongs, setStrongs] = useState({});
+  const [weaks, setWeaks] = useState({});
+  const [skinCounter, setSkinCounter] = useState(0);
 
   useEffect(() => {
     const { fighter_id } = props.match.params;
 
     axios
       .get(`/api/fighters/${fighter_id}`)
-      .then((res) => setFighter(res.data[0]))
+      .then((res) => {
+        setFighter(res.data.fighter[0]);
+        setStrongs({
+          strong1: res.data.strong1[0],
+          strong2: res.data.strong2[0],
+          strong3: res.data.strong3[0],
+        });
+        setWeaks({
+          weak1: res.data.weak1[0],
+          weak2: res.data.weak2[0],
+          weak3: res.data.weak3[0],
+        });
+        // window.location.reload(false);
+      })
       .catch((err) => console.log(err));
-  }, []);
+  }, [props.match.params.fighter_id]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`/api/fighters/${fighter.strong_1}`)
-  //     .then((res) => setFighter(res.data[0]))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  const fighterSkins = [
+    fighter.skin_1,
+    fighter.skin_2,
+    fighter.skin_3,
+    fighter.skin_4,
+    fighter.skin_5,
+    fighter.skin_6,
+    fighter.skin_7,
+    fighter.skin_8,
+  ];
 
   console.log(fighter);
+  console.log(strongs);
+  console.log(weaks);
 
-  if (fighter) {
+  if (weaks.weak3) {
     return (
-      <div className="fighter-container">
+      <div className="header-container">
         {/* HEADER SECTION */}
         <Link to="/">
           <button className="home-button">
@@ -57,18 +78,47 @@ function Fighter(props) {
             <div className="fighter-number">
               <h2>#{fighter.fighter_number}</h2>
             </div>
-            <img src={fighter.icon_image} className="fighter-icon" alt="" />
+            {fighter.fighter_number === 36 ? (
+              <img
+                src={fighter.icon_image}
+                className="icon-snake-image"
+                alt=""
+              />
+            ) : fighter.fighter_number >= 79 && fighter.fighter_number <= 81 ? (
+              <img
+                src={fighter.icon_image}
+                className="fighter-icon"
+                style={{ filter: "brightness(0) invert(1)" }}
+                alt=""
+              />
+            ) : (
+              <img src={fighter.icon_image} className="fighter-icon" alt="" />
+            )}
             <h1>{fighter.fighter_name}</h1>
           </div>
 
           {/* LOGO SECTION */}
           <div className="logo-container">
-            <img src={fighter.logo_image} className="fighter-logo" alt="" />
+            {fighter.fighter_series_logo === 12 ||
+            fighter.fighter_series_logo === 16 ? (
+              <img
+                src={fighter.logo_image}
+                className="special-logo"
+                style={{ backgroundColor: "black" }}
+                alt=""
+              />
+            ) : (
+              <img src={fighter.logo_image} className="fighter-logo" alt="" />
+            )}
           </div>
 
           {/* VIDEO SECTION */}
           <div className="video-container">
-            <ReactPlayer url={fighter.fighter_video} width={370} height={250} />
+            <ReactPlayer
+              url={fighter.fighter_video}
+              width={"100%"}
+              height={"100%"}
+            />
           </div>
 
           {/* COUNTER-PICKS SECTION */}
@@ -78,20 +128,94 @@ function Fighter(props) {
             </div>
             <div className="counters">
               <div className="each-counter">
-                <h5>Strong Against</h5>
-                {fighter.strong_1}
+                <h4>Strong Against</h4>
                 <br />
-                {fighter.strong_2}
+                <Link
+                  to={`/fighter/${strongs.strong1.fighter_id}`}
+                  params={{ fighterID: strongs.strong1.fighter_id }}
+                >
+                  <div className="counters-image-holder">
+                    <h5>{strongs.strong1.fighter_name}</h5>
+                    <img
+                      src={strongs.strong1.skin_1}
+                      className="counters-image"
+                      alt=""
+                    />
+                  </div>
+                </Link>
                 <br />
-                {fighter.strong_3}
+                <Link
+                  to={`/fighter/${strongs.strong2.fighter_id}`}
+                  params={{ fighterID: strongs.strong2.fighter_id }}
+                >
+                  <div className="counters-image-holder">
+                    <h5>{strongs.strong2.fighter_name}</h5>
+                    <img
+                      src={strongs.strong2.skin_1}
+                      className="counters-image"
+                      alt=""
+                    />
+                  </div>
+                </Link>
+                <br />
+                <Link
+                  to={`/fighter/${strongs.strong3.fighter_id}`}
+                  params={{ fighterID: strongs.strong3.fighter_id }}
+                >
+                  <div className="counters-image-holder">
+                    <h5>{strongs.strong3.fighter_name}</h5>
+                    <img
+                      src={strongs.strong3.skin_1}
+                      className="counters-image"
+                      alt=""
+                    />
+                  </div>
+                </Link>
               </div>
               <div className="each-counter">
-                <h5>Weak Against</h5>
-                {fighter.weak_1}
+                <h4>Weak Against</h4>
                 <br />
-                {fighter.weak_2}
+                <Link
+                  to={`/fighter/${weaks.weak1.fighter_id}`}
+                  params={{ fighterID: weaks.weak1.fighter_id }}
+                >
+                  <div className="counters-image-holder">
+                    <h5>{weaks.weak1.fighter_name}</h5>
+                    <img
+                      src={weaks.weak1.skin_1}
+                      className="counters-image"
+                      alt=""
+                    />
+                  </div>
+                </Link>
                 <br />
-                {fighter.weak_3}
+                <Link
+                  to={`/fighter/${weaks.weak2.fighter_id}`}
+                  params={{ fighterID: weaks.weak2.fighter_id }}
+                >
+                  <div className="counters-image-holder">
+                    <h5>{weaks.weak2.fighter_name}</h5>
+                    <img
+                      src={weaks.weak2.skin_1}
+                      className="counters-image"
+                      alt=""
+                    />
+                  </div>
+                </Link>
+                <br />
+                <Link
+                  to={`/fighter/${weaks.weak3.fighter_id}`}
+                  params={{ fighterID: weaks.weak3.fighter_id }}
+                >
+                  <div className="counters-image-holder">
+                    <h5>{weaks.weak3.fighter_name}</h5>
+                    <img
+                      src={weaks.weak3.skin_1}
+                      className="counters-image"
+                      alt=""
+                    />
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -132,15 +256,25 @@ function Fighter(props) {
           </div>
 
           {/* SKINS SECTION */}
-          {/* <div className="skins-section">
-            <img src={fighter.skin_1} className="fighter-skins" alt="" />
-          </div> */}
-
-          {/* <div className="fighter-logo">
-            <img src={fighter.logo_image} alt="" />
-          </div> */}
-          {/* <div className="fighter-stats"></div>
-          <div className="fighter-counter-picks"></div> */}
+          <div className="skins-container">
+            <div className="section-header">
+              <h1>CHARACTER SKINS</h1>
+            </div>
+            <div className="character-skins">
+              <img
+                src={fighterSkins[skinCounter]}
+                className="fighter-skins"
+                alt=""
+                onClick={() => {
+                  if (skinCounter > 6) {
+                    setSkinCounter(0);
+                  } else {
+                    setSkinCounter(skinCounter + 1);
+                  }
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );

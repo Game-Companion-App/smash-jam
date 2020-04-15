@@ -3,7 +3,7 @@ FROM fighters
 FULL OUTER JOIN fighter_skins
 ON fighters.fighter_skins = fighter_skins.skin_id
 FULL OUTER JOIN series_logos
-ON fighters.fighter_series_icon = series_logos.series_logo_id
+ON fighters.fighter_series_logo = series_logos.series_logo_id
 FULL OUTER JOIN series_icons
 ON fighters.fighter_series_icon = series_icons.series_icon_id
 FULL OUTER JOIN  fighter_stats
