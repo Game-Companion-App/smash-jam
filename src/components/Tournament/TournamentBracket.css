@@ -1,15 +1,18 @@
 .bracket-container {
   position: relative;
-  height: 90vh;
   width: 100%;
-  background-color: #202020;
-  overflow: auto;
-  padding: 70px 30px;
+  /* background-color: #202020; */
+  background: linear-gradient(270deg,#D2CCC4, #2F4353);
+  padding: 70px 30px 130px 30px;
   display: flex;
+  max-height: 3450px;
+  overflow-y: hidden;
 }
 .bracket-round-container {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  /* min-height: fit-content; */
 }
 .bracket-round-one,
 .bracket-round-two,
@@ -47,56 +50,61 @@
   margin: 1595px 0 1595px -10px;
 }
 
-.fighter-container {
+.players-container {
   position: absolute;
   z-index: 1;
   display: flex;
+  max-height: 3400px;
 }
-.fighters-round-container {
+.players-round-container {
   color: whitesmoke;
 }
-.fighters-round-one,
-.fighters-round-two,
-.fighters-round-three,
-.fighters-round-four,
-.fighters-round-five,
-.fighters-round-six,
-.fighters-round-seven {
+.players-round-one,
+.players-round-two,
+.players-round-three,
+.players-round-four,
+.players-round-five,
+.players-round-six,
+.players-round-seven {
   position: relative;
   height: 50px;
   width: 100px;
   margin-left: 30px;
 }
-.fighters-round-two {
+.players-round-two {
   margin: 25px 0 50px 62px;
 }
-.fighters-round-three {
+.players-round-three {
   margin: 75px 0 150px 60px;
 }
-.fighters-round-four {
+.players-round-four {
   margin: 175px 0 350px 60px;
 }
-.fighters-round-five {
+.players-round-five {
   margin: 375px 0 750px 60px;
 }
-.fighters-round-six {
+.players-round-six {
   margin: 775px 0 1550px 60px;
 }
-.fighters-round-seven {
+.players-round-seven {
   margin: 1580px 0 0 60px;
 }
-.fighter-img {
+.player-img-container {
   position: absolute;
   z-index: 1;
   height: 55px;
   width: 55px;
   margin: -3px 0 0 -55px;
+  background-color: black;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+}
+.player-img {
+  margin: 0 auto;
+  height: 50px;
 }
 
-.chat-container {
-  height: 75vh;
-  padding: 10px 30px;
-}
 
 .home-button {
   height: 50px;
@@ -113,4 +121,54 @@
   width: 20px;
   margin-right: 5px;
   padding-bottom: 2.7px;
+}
+
+.setup-button {
+  z-index: 10;
+  position: fixed;
+  width: 140px;
+  top: 10px;
+  right: calc(50vw - 70px);
+  font-weight: bold;
+}
+
+.setup-dropdown {
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(3px);
+  border: 2px solid whitesmoke;
+  transition: 0.5s;
+}
+.setupClosed {
+  height: 0;
+  width: 120px;
+  z-index: 9;
+  position: fixed;
+  top: 37px;
+  right: calc(50vw - 60px);
+  margin-top: -5px;
+  overflow: hidden;
+}
+.setupOpen {
+  height: 600px;
+  width: 400px;
+  z-index: 9;
+  position: fixed;
+  top: 40px;
+  right: calc(50vw - 200px);
+  overflow: scroll;
+  color: whitesmoke;
+}
+
+.add-player {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+}
+
+.player-list {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
 }
