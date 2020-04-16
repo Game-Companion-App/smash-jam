@@ -1,0 +1,119 @@
+* {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.chat-size-toggle {
+  z-index: 5;
+  color: whitesmoke;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid whitesmoke;
+  cursor: pointer;
+}
+
+.login {
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(3px);
+  height: 14vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 1s;
+}
+.chat {
+  z-index: 5;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 11vh;
+  padding: 20px 15vw 0 15vw;
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(3px);
+  display: flex;
+  color: whitesmoke;
+  transition: 1s;
+}
+.chat-login-input form {
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+}
+.chat-login-input button {
+  padding: 5px 10px;
+}
+.chat-message-input form {
+  position: absolute;
+  width: 98%;
+  height: 40px;
+  padding: 0 10px;
+}
+
+
+.chat-box {
+  position: relative;
+  width: 80%;
+  padding: 10px;
+}
+#online {
+  padding: 10px;
+  width: 20%;
+}
+#messages {
+  padding: 10px;
+  height: 41vh;
+  overflow: scroll;
+  width: 100%;
+}
+#m {
+  width: 100%;
+}
+#messages li {
+  list-style: none;
+  background-color: #303235;
+  margin: 3px 0;
+  padding: 5px;
+  display: flex;
+  height: fit-content;
+}
+#messages li * {
+  margin: 0 10px;
+}
+.innermsg {
+  overflow-wrap: anywhere;
+}
+
+.chat-expanded {
+  height: 50vh;
+  transition: 1s;
+}
+
+@media (max-width: 768px){
+  .chat {
+    padding: 0;
+    padding-top: 20px;
+  }
+  .chat-box {
+    padding: 10px 0 0 0;
+  }
+  #online {
+    padding: 10px 5px;
+    list-style: none;
+  }
+  #messages {
+    padding: 0 5px 0 0;
+  }
+  .chat-message-input form {
+    width: 98%;
+    height: 40px;
+    padding: 0;
+  }
+}

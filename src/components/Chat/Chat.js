@@ -4,11 +4,13 @@ import { useImmer } from 'use-immer';
 
 import './Chat.css';
 
-const Messages = props => props.data.map(m => m[0] !== '' ? (<li><strong>{m[0]}</strong> : <div className="innermsg">{m[1]}</div></li>) : (<li className="update">{m[1]}</li>) );
+const Messages = props => props.data.map(m => m[0] !== '' ? (<li><strong>{m[0]}:</strong> <div className="innermsg">{m[1]}</div></li>) : (<li className="update">{m[1]}</li>) );
 
 const Online = props => props.data.map(m => <li id={m[0]}>{m[1]}</li>);
 
 export default () => {
+  const [chatSize, setChatSize] = useState('collapsed')
+  
   const [id, setId] = useState('');
   const [nameInput, setNameInput] = useState('');
   const [room, setRoom] = useState('');
@@ -23,12 +25,12 @@ export default () => {
   useEffect(()=>{
     socket.on('message que',(nick,message) => {
       setMessages(draft => {
-        draft.push([nick,message])
+        draft.unshift([nick,message])
       })
     });
 
     socket.on('update',message => setMessages(draft => {
-      draft.push(['',message]);
+      draft.unshift(['',message]);
     }));
 
     socket.on('people-list',people => {
@@ -36,13 +38,13 @@ export default () => {
       for(let person in people){
         newState.push([people[person].id,people[person].nick]);
       }
-      setOnline(draft=>{draft.push(...newState)});
+      setOnline(draft=>{draft.unshift(...newState)});
       console.log(online)
     });
 
     socket.on('add-person',(nick,id)=>{
       setOnline(draft => {
-        draft.push([id,nick])
+        draft.unshift([id,nick])
       })
     });
 
@@ -51,9 +53,9 @@ export default () => {
     });
 
     socket.on('chat message',(nick,message)=>{
-      setMessages(draft => {draft.push([nick,message])})
+      setMessages(draft => {draft.unshift([nick,message])})
     });
-  },0);
+  }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -73,22 +75,36 @@ export default () => {
   };
 
   return id ? (
-    <section style={{display:'flex',flexDirection:'row'}} >
-      <ul id="messages"><Messages data={messages} /></ul>
-      <ul id="online"> &#x1f310; : <Online data={online} /> </ul>
-      <div id="sendform">
-        <form onSubmit={e => handleSend(e)} style={{display: 'flex'}}>
-            <input id="m" onChange={e=>setInput(e.target.value.trim())} /><button style={{width:'75px'}} type="submit">Send</button>
-        </form>
+    <section className={`chat chat-${chatSize}`}>
+      {chatSize === 'collapsed' ?
+          <div className='chat-size-toggle' onClick={() => setChatSize('expanded')}>︽</div>
+        :
+          <div className='chat-size-toggle' onClick={() => setChatSize('collapsed')}>︾</div>
+      }
+      <div id="online">Online: <Online data={online} /> </div>
+      <div className='chat-box'>
+        <div id="messages"><Messages data={messages} /></div>
+        <div className='chat-message-input'>
+          <form onSubmit={e => handleSend(e)} style={{display: 'flex'}}>
+              <input id="m" onChange={e=>setInput(e.target.value.trim())} value={input} /><button style={{width:'75px'}} type="submit">Send</button>
+          </form>
+        </div>
       </div>
     </section>
   ) : (
-    <div style={{ textAlign: 'center', margin: '30vh auto', width: '70%' }}>
-      <form onSubmit={event => handleSubmit(event)}>
-        <input id="name" onChange={e => setNameInput(e.target.value.trim())} required placeholder="What is your name .." /><br />
-        <input id="room" onChange={e => setRoom(e.target.value.trim())} placeholder="What is your room .." /><br />
-        <button type="submit">Submit</button>
-      </form>
+    <div className={`login chat-${chatSize}`}>
+    {chatSize === 'collapsed' ?
+        <div className='chat-size-toggle' onClick={() => setChatSize('expanded')}>︽</div>
+      :
+        <div className='chat-size-toggle' onClick={() => setChatSize('collapsed')}>︾</div>
+    }
+      <div className='chat-login-input'>
+        <form onSubmit={event => handleSubmit(event)}>
+          <input id="name" onChange={e => setNameInput(e.target.value.trim())} required placeholder="Pick A Username" /><br />
+          {/* <input id="room" onChange={e => setRoom(e.target.value.trim())} placeholder="Room Name" /><br /> */}
+          <button type="submit">Join Chat</button>
+        </form>
+      </div>
     </div>
   );
 };
