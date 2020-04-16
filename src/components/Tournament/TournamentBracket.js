@@ -1,134 +1,117 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios'
 import {withRouter, Link} from 'react-router-dom'
 import Chat from "../Chat/Chat";
 import "./TournamentBracket.css";
 
 function TournamentBracket(props) {
-  const [fightersImg, setFightersImg] = useState([]);
-  const [fightersR1, setFightersR1] = useState([]);
-  const [fightersR2, setFightersR2] = useState([]);
-  const [fightersR3, setFightersR3] = useState([]);
-  const [fightersR4, setFightersR4] = useState([]);
-  const [fightersR5, setFightersR5] = useState([]);
-  const [fightersR6, setFightersR6] = useState([]);
-  const [fightersR7, setFightersR7] = useState([]);
+  const [bracketSetup, setBracketSetup] = useState({
+    seedNum: 0,
+    playersToAdd: [],
+    fightersToAdd: []
+  })
+  
+  const [seed, setSeed] = useState(8)
+  const [newPlayer, setNewPlayer] = useState('')
+  const [newFighter, setNewFighter] = useState('')
+  const [fighters, setFighters] = useState([]);
+  const [playerImgs, setPlayerImgs] = useState([]);
+
+  const [playersR1, setplayersR1] = useState([]);
+  const [playersR2, setplayersR2] = useState([]);
+  const [playersR3, setplayersR3] = useState([]);
+  const [playersR4, setplayersR4] = useState([]);
+  const [playersR5, setplayersR5] = useState([]);
+  const [playersR6, setplayersR6] = useState([]);
+  const [playersR7, setplayersR7] = useState([]);
+
+  const [setupDropdown, setSetupDropdown] = useState('setupClosed')
+
 
   useEffect(() => {
-    setFightersR2(Array(fightersR1.length / 2).fill(""));
-    setFightersR3(Array(fightersR1.length / 4).fill(""));
-    setFightersR4(Array(fightersR1.length / 8).fill(""));
-    setFightersR5(Array(fightersR1.length / 16).fill(""));
-    setFightersR6(Array(fightersR1.length / 32).fill(""));
-    setFightersR7(Array(fightersR1.length / 64).fill(""));
-  }, [fightersR1]);
-
-  let dp =
-    "https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png";
-
-  useEffect(() => {
-    setFightersR1([
-      "Grover",
-      "Benton",
-      "Neal",
-      "Caitlin",
-      "Daryl",
-      "Ina",
-      "Preston",
-      "Ellen",
-      "Johnnie",
-      "Francisco",
-      "Theodore",
-      "Domingo",
-      "Williams",
-      "Adrian",
-      "Alyce",
-      "Ryan",
-      "Consuelo",
-      "Tommie",
-      "John",
-      "Landon",
-      "Mervin",
-      "Joyce",
-      "Conrad",
-      "Vince",
-      "Jermaine",
-      "Frank",
-      "Julia",
-      "Debra",
-      "Wallace",
-      "Bernie",
-      "Lazaro",
-      "Elisa",
-      "Brenton",
-      "Lowell",
-      "Owen",
-      "Rodolfo",
-      "Ramona",
-      "Blake",
-      "Eliseo",
-      "Geneva",
-      "Ricardo",
-      "Hector",
-      "Benita",
-      "Mildred",
-      "Morton",
-      "Derek",
-      "Hester",
-      "Thomas",
-      "Leta",
-      "Gaston",
-      "Vicki",
-      "Mamie",
-      "Amelia",
-      "Jose",
-      "Amalia",
-      "Fredric",
-      "Cindy",
-      "William",
-      "Ladonna",
-      "Rhea",
-      "Rupert",
-      "Everette",
-      "Michael",
-      "Loren",
-    ]);
-    setFightersImg(Array(64).fill(`${dp}`));
+    axios
+      .get("/api/standard")
+      .then((res1) => {
+        let standardFighters = res1.data.map(fighter => [fighter.skin_1, fighter.fighter_name])
+        axios
+          .get("/api/dlc")
+          .then((res2) => {
+            let dlcFighters = res2.data.map(fighter => [fighter.skin_1, fighter.fighter_name])
+            setFighters([...standardFighters, ...dlcFighters])
+          }).catch((err2) => console.log(err2));
+      }).catch((err1) => console.log(err1));
   }, []);
 
-  let advFighterR2 = [...fightersR2];
-  let advFighterR3 = [...fightersR3];
-  let advFighterR4 = [...fightersR4];
-  let advFighterR5 = [...fightersR5];
-  let advFighterR6 = [...fightersR6];
-  let advFighterR7 = [...fightersR7];
-  const advanceFighter = (i, round) => {
+  useEffect(() => {
+    setplayersR2(Array(seed / 2).fill(""));
+    setplayersR3(Array(seed / 4).fill(""));
+    if(seed >= 8) setplayersR4(Array(seed / 8).fill(""))
+    if(seed >= 16) setplayersR5(Array(seed / 16).fill(""));
+    if(seed >= 32) setplayersR6(Array(seed / 32).fill(""));
+    if(seed >= 64) setplayersR7(Array(seed / 64).fill(""));
+  }, [seed]);
+
+  useEffect(() => {
+    // setplayersR1(["Grover","Benton","Neal","Caitlin","Daryl","Ina","Preston","Ellen","Johnnie","Francisco","Theodore","Domingo","Williams","Adrian","Alyce","Ryan","Consuelo","Tommie","John","Landon","Mervin","Joyce","Conrad","Vince","Jermaine","Frank","Julia","Debra","Wallace","Bernie","Lazaro","Elisa","Brenton","Lowell","Owen","Rodolfo","Ramona","Blake","Eliseo","Geneva","Ricardo","Hector","Benita","Mildred","Morton","Derek","Hester","Thomas","Leta","Gaston","Vicki","Mamie","Amelia","Jose","Amalia","Fredric","Cindy","William","Ladonna","Rhea","Rupert","Everette","Michael","Loren",
+    setplayersR1(["Grover","Benton","Neal","Caitlin","Daryl","Ina","Preston","Ellen"]);
+    // setplayersR1(["Grover","Benton","Neal","Caitlin"]);
+  }, []);
+
+  let fighterOptions = fighters.sort().map(fighter => {
+    return  <option value={fighter[1]}>
+              {fighter[1]}
+            </option>
+  })
+
+  const handleAddPlayers = () => {
+    let addedPlayer = Object.assign(bracketSetup)
+    addedPlayer.playersToAdd.push(newPlayer)
+    setBracketSetup(addedPlayer)
+  }
+  const handleAddFighters = () => {
+    let addedFighter = Object.assign(bracketSetup)
+    addedFighter.fightersToAdd.push(newFighter)
+    setBracketSetup(addedFighter)
+  }
+  
+  const toggleSetupDropdown = () => {
+    setupDropdown === 'setupClosed' ? setSetupDropdown('setupOpen') : setSetupDropdown('setupClosed')
+  }
+
+  const advancePlayer = (i, round) => {
+    let advPlayerR2 = [...playersR2];
+    let advPlayerR3 = [...playersR3];
+    let advPlayerR4 = [...playersR4];
+    let advPlayerR5 = [...playersR5];
+    let advPlayerR6 = [...playersR6];
+    let advPlayerR7 = [...playersR7];
     if (round === 1) {
-      advFighterR2[Math.floor(i / 2)] = [...fightersR1][i];
-      setFightersR2(advFighterR2);
+      advPlayerR2[Math.floor(i / 2)] = [...playersR1][i];
+      setplayersR2(advPlayerR2);
     }
     if (round === 2) {
-      advFighterR3[Math.floor(i / 2)] = [...fightersR2][i];
-      setFightersR3(advFighterR3);
+      advPlayerR3[Math.floor(i / 2)] = [...playersR2][i];
+      setplayersR3(advPlayerR3);
     }
     if (round === 3) {
-      advFighterR4[Math.floor(i / 2)] = [...fightersR3][i];
-      setFightersR4(advFighterR4);
+      advPlayerR4[Math.floor(i / 2)] = [...playersR3][i];
+      setplayersR4(advPlayerR4);
     }
     if (round === 4) {
-      advFighterR5[Math.floor(i / 2)] = [...fightersR4][i];
-      setFightersR5(advFighterR5);
+      advPlayerR5[Math.floor(i / 2)] = [...playersR4][i];
+      setplayersR5(advPlayerR5);
     }
     if (round === 5) {
-      advFighterR6[Math.floor(i / 2)] = [...fightersR5][i];
-      setFightersR6(advFighterR6);
+      advPlayerR6[Math.floor(i / 2)] = [...playersR5][i];
+      setplayersR6(advPlayerR6);
     }
     if (round === 6) {
-      advFighterR7[Math.floor(i / 2)] = [...fightersR6][i];
-      setFightersR7(advFighterR7);
+      advPlayerR7[Math.floor(i / 2)] = [...playersR6][i];
+      setplayersR7(advPlayerR7);
     }
   };
 
-  let bracketRoundOne = fightersR1.map((el, i) => {
+  let bracketRoundOne = playersR1.map((el, i) => {
     if (i % 2 === 0) {
       return (
         <div className="bracket-round-one">
@@ -145,7 +128,7 @@ function TournamentBracket(props) {
       );
     }
   });
-  let bracketRoundTwo = fightersR1.map((el, i) => {
+  let bracketRoundTwo = playersR1.map((el, i) => {
     if (i % 4 === 0) {
       return (
         <div className="bracket-round-two">
@@ -162,8 +145,23 @@ function TournamentBracket(props) {
       );
     }
   });
-  let bracketRoundThree = fightersR1.map((el, i) => {
-    if (i % 8 === 0) {
+  let bracketRoundThree = playersR3.map((el, i) => {
+    if(seed < 8){
+      return (
+        <div className="bracket-round-three">
+          <svg height="100%" width="100%">
+            <path
+              d="M5 5 h160"
+              fill="none"
+              stroke-width="4"
+              stroke="whitesmoke"
+              strokeLinejoin="bevel"
+            ></path>
+          </svg>
+        </div>
+      );
+    }
+    else if (i % 8 === 0) {
       return (
         <div className="bracket-round-three">
           <svg height="100%" width="100%">
@@ -179,8 +177,23 @@ function TournamentBracket(props) {
       );
     }
   });
-  let bracketRoundFour = fightersR1.map((el, i) => {
-    if (i % 16 === 0) {
+  let bracketRoundFour = playersR4.map((el, i) => {
+    if(seed < 16){
+      return (
+        <div className="bracket-round-four">
+          <svg height="100%" width="100%">
+            <path
+              d="M5 5 h160"
+              fill="none"
+              stroke-width="4"
+              stroke="whitesmoke"
+              strokeLinejoin="bevel"
+            ></path>
+          </svg>
+        </div>
+      );
+    }
+    else if (i % 16 === 0) {
       return (
         <div className="bracket-round-four">
           <svg height="100%" width="100%">
@@ -196,8 +209,23 @@ function TournamentBracket(props) {
       );
     }
   });
-  let bracketRoundFive = fightersR1.map((el, i) => {
-    if (i % 32 === 0) {
+  let bracketRoundFive = playersR5.map((el, i) => {
+    if(seed < 32){
+      return (
+        <div className="bracket-round-five">
+          <svg height="100%" width="100%">
+            <path
+              d="M5 5 h160"
+              fill="none"
+              stroke-width="4"
+              stroke="whitesmoke"
+              strokeLinejoin="bevel"
+            ></path>
+          </svg>
+        </div>
+      );
+    }
+    else if (i % 32 === 0) {
       return (
         <div className="bracket-round-five">
           <svg height="100%" width="100%">
@@ -213,7 +241,22 @@ function TournamentBracket(props) {
       );
     }
   });
-  let bracketRoundSix = fightersR1.map((el, i) => {
+  let bracketRoundSix = playersR6.map((el, i) => {
+    if(seed < 64){
+      return (
+        <div className="bracket-round-six">
+          <svg height="100%" width="100%">
+            <path
+              d="M5 5 h160"
+              fill="none"
+              stroke-width="4"
+              stroke="whitesmoke"
+              strokeLinejoin="bevel"
+            ></path>
+          </svg>
+        </div>
+      );
+    }
     if (i % 64 === 0) {
       return (
         <div className="bracket-round-six">
@@ -230,7 +273,7 @@ function TournamentBracket(props) {
       );
     }
   });
-  let bracketRoundSeven = fightersR1.map((el, i) => {
+  let bracketRoundSeven = playersR7.map((el, i) => {
     if (i % 64 === 0) {
       return (
         <div className="bracket-round-seven">
@@ -248,122 +291,137 @@ function TournamentBracket(props) {
     }
   });
 
-  let fightersRoundOne = fightersR1.map((name, i) => {
+  let playersRoundOne = playersR1.map((name, i) => {
     let round = 1;
     return (
-      <div className="fighters-round-one">
-        <img
-          src={fightersImg[i]}
-          alt=""
-          onClick={() => advanceFighter(i, round)}
-          className="fighter-img"
-        />
+      <div className="players-round-one">
+        <div className="player-img-container">
+          <img
+            src={playerImgs[i]}
+            alt=""
+            onClick={() => advancePlayer(i, round)}
+            className='player-img'
+          />
+        </div>
         <p>{name}</p>
       </div>
     );
   });
-  let fightersRoundTwo = fightersR2.map((name, i) => {
+  let playersRoundTwo = playersR2.map((name, i) => {
     let round = 2;
-    if (name === "") return <div className="fighters-round-two"></div>;
-    else if (fightersR2.length <= fightersR1.length / 2) {
+    if (name === "") return <div className="players-round-two"></div>;
+    else if (playersR2.length <= playersR1.length / 2) {
       return (
-        <div className="fighters-round-two">
-          <img
-            src={fightersImg[i]}
-            alt=""
-            onClick={() => advanceFighter(i, round)}
-            className="fighter-img"
-          />
+        <div className="players-round-two">
+          <div className="player-img-container">
+            <img
+              src={playerImgs[i]}
+              alt=""
+              onClick={() => advancePlayer(i, round)}
+              className='player-img'
+            />
+          </div>
           <p>{name}</p>
         </div>
       );
     }
   });
-  let fightersRoundThree = fightersR3.map((name, i) => {
+  let playersRoundThree = playersR3.map((name, i) => {
     let round = 3;
-    if (name === "") return <div className="fighters-round-three"></div>;
-    else if (fightersR3.length <= fightersR2.length / 2) {
+    if (name === "") return <div className="players-round-three"></div>;
+    else if (playersR3.length <= playersR2.length / 2) {
       return (
-        <div className="fighters-round-three">
-          <img
-            src={fightersImg[i]}
-            alt=""
-            onClick={() => advanceFighter(i, round)}
-            className="fighter-img"
-          />
+        <div className="players-round-three">
+          <div className="player-img-container">
+            <img
+              src={playerImgs[i]}
+              alt=""
+              onClick={() => advancePlayer(i, round)}
+              className='player-img'
+            />
+          </div>
           <p>{name}</p>
         </div>
       );
     }
   });
-  let fightersRoundFour = fightersR4.map((name, i) => {
+  let playersRoundFour = playersR4.map((name, i) => {
     let round = 4;
-    if (name === "") return <div className="fighters-round-four"></div>;
-    else if (fightersR4.length <= fightersR3.length / 2) {
+    if (name === "") return <div className="players-round-four"></div>;
+    else if (playersR4.length <= playersR3.length / 2) {
       return (
-        <div className="fighters-round-four">
-          <img
-            src={fightersImg[i]}
-            alt=""
-            onClick={() => advanceFighter(i, round)}
-            className="fighter-img"
-          />
+        <div className="players-round-four">
+          <div className="player-img-container">
+            <img
+              src={playerImgs[i]}
+              alt=""
+              onClick={() => advancePlayer(i, round)}
+              className='player-img'
+            />
+          </div>
           <p>{name}</p>
         </div>
       );
     }
   });
-  let fightersRoundFive = fightersR5.map((name, i) => {
+  let playersRoundFive = playersR5.map((name, i) => {
     let round = 5;
-    if (name === "") return <div className="fighters-round-five"></div>;
-    else if (fightersR5.length <= fightersR4.length / 2) {
+    if (name === "") return <div className="players-round-five"></div>;
+    else if (playersR5.length <= playersR4.length / 2) {
       return (
-        <div className="fighters-round-five">
-          <img
-            src={fightersImg[i]}
-            alt=""
-            onClick={() => advanceFighter(i, round)}
-            className="fighter-img"
-          />
+        <div className="players-round-five">
+          <div className="player-img-container">
+            <img
+              src={playerImgs[i]}
+              alt=""
+              onClick={() => advancePlayer(i, round)}
+              className='player-img'
+            />
+          </div>
           <p>{name}</p>
         </div>
       );
     }
   });
-  let fightersRoundSix = fightersR6.map((name, i) => {
+  let playersRoundSix = playersR6.map((name, i) => {
     let round = 6;
-    if (name === "") return <div className="fighters-round-six"></div>;
-    else if (fightersR6.length <= fightersR5.length / 2) {
+    if (name === "") return <div className="players-round-six"></div>;
+    else if (playersR6.length <= playersR5.length / 2) {
       return (
-        <div className="fighters-round-six">
-          <img
-            src={fightersImg[i]}
-            alt=""
-            onClick={() => advanceFighter(i, round)}
-            className="fighter-img"
-          />
+        <div className="players-round-six">
+          <div className="player-img-container">
+            <img
+              src={playerImgs[i]}
+              alt=""
+              onClick={() => advancePlayer(i, round)}
+              className='player-img'
+            />
+          </div>
           <p>{name}</p>
         </div>
       );
     }
   });
-  let fightersRoundSeven = fightersR7.map((name, i) => {
+  let playersRoundSeven = playersR7.map((name, i) => {
     let round = 7;
-    if (name === "") return <div className="fighters-round-seven"></div>;
-    else if (fightersR4.length <= fightersR3.length / 2) {
+    if (name === "") return <div className="players-round-seven"></div>;
+    else if (playersR4.length <= playersR3.length / 2) {
       return (
-        <div className="fighters-round-seven">
-          <img
-            src={fightersImg[i]}
-            alt=""
-            onClick={() => advanceFighter(i, round)}
-            className="fighter-img"
-          />
+        <div className="players-round-seven">
+          <div className="player-img-container">
+            <img
+              src={playerImgs[i]}
+              alt=""
+              onClick={() => advancePlayer(i, round)}
+              className='player-img'
+            />
+          </div>
           <p>{name}</p>
         </div>
       );
     }
   });
+
 
   return (
     <>
@@ -377,6 +435,70 @@ function TournamentBracket(props) {
           Home
         </button>
       </Link>
+
+      {/* bracket setup dropdown */}
+      <button className='setup-button' onClick={toggleSetupDropdown}>Bracket Setup ˅</button>
+      <div className={`setup-dropdown ${setupDropdown}`}>
+        {/* seed # */}
+        <div className='add-player'>
+          <h3 style={{margin: '0'}}>Seed #</h3>
+          <select style={{height: '35px', width: '50px'}}>
+            <option style={{fontSize: '18px'}} value={4}> 4 </option>
+            <option style={{fontSize: '18px'}} value={8}> 8 </option>
+            <option style={{fontSize: '18px'}} value={16}> 16 </option>
+            <option style={{fontSize: '18px'}} value={32}> 32 </option>
+            <option style={{fontSize: '18px'}} value={64}> 64 </option>
+          </select>
+        </div>
+        
+        {/* added players & fighters shown here */}
+        <div className='player-list'>
+          {bracketSetup.playersToAdd[0] &&
+            <>
+              <div style={{display: 'flex', flexDirection: 'column', width: '45%', overflow: 'hidden'}}>
+                <h4>Players</h4>
+                <ol style={{marginLeft: '30px'}}>
+                  {bracketSetup.playersToAdd.map(player => <li style={{width: 'fit-content', maxHeight: '20px', textOverflow: 'clip'}}> {player} </li>)}
+                </ol>
+              </div>
+              <div style={{display: 'flex', flexDirection: 'column', width: '45%', overflow: 'hidden'}}>
+                <h4>Fighters</h4>
+                <ol style={{marginLeft: '30px'}}>
+                  {bracketSetup.fightersToAdd.map(fighter => <li style={{width: 'fit-content', maxHeight: '20px', textOverflow: 'clip'}}> {fighter} </li>)}
+                </ol>
+              </div>
+            </>
+          }
+        </div>
+
+        {/* add a player to the tournament */}
+        <div className='add-player'>
+          <input
+            onChange={ev => setNewPlayer(ev.target.value)}
+            value={newPlayer}
+            placeholder='Player Name'
+            style={{height: '30px', width: '140px'}}>
+          </input>
+          <select style={{height: '30px', width: '180px'}}
+                  onChange={ev => setNewFighter(ev.target.value)}
+                  value={newFighter}>
+            <option value={0}> - Select A Fighter - </option>
+            {fighterOptions}
+          </select>
+          <button
+            style={{height: '30px', padding: '0 5px'}}
+            onClick={() => {
+              handleAddPlayers()
+              setNewPlayer('')
+              handleAddFighters()
+              // setNewFighter('')
+            }}
+          >Add</button>
+        </div>
+      </div>
+      
+      <Chat />
+      
       {/* bracket container */}
       <div className="bracket-container">
         <div className="bracket-round-container"> {bracketRoundOne} </div>
@@ -386,20 +508,15 @@ function TournamentBracket(props) {
         <div className="bracket-round-container"> {bracketRoundFive} </div>
         <div className="bracket-round-container"> {bracketRoundSix} </div>
         <div className="bracket-round-container"> {bracketRoundSeven} </div>
-        <div className="fighter-container">
-          <div className="fighters-round-container"> {fightersRoundOne} </div>
-          <div className="fighters-round-container"> {fightersRoundTwo} </div>
-          <div className="fighters-round-container"> {fightersRoundThree} </div>
-          <div className="fighters-round-container"> {fightersRoundFour} </div>
-          <div className="fighters-round-container"> {fightersRoundFive} </div>
-          <div className="fighters-round-container"> {fightersRoundSix} </div>
-          <div className="fighters-round-container"> {fightersRoundSeven} </div>
+        <div className="players-container">
+          <div className="players-round-container"> {playersRoundOne} </div>
+          <div className="players-round-container"> {playersRoundTwo} </div>
+          <div className="players-round-container"> {playersRoundThree} </div>
+          <div className="players-round-container"> {playersRoundFour} </div>
+          <div className="players-round-container"> {playersRoundFive} </div>
+          <div className="players-round-container"> {playersRoundSix} </div>
+          <div className="players-round-container"> {playersRoundSeven} </div>
         </div>
-      </div>
-
-      {/* chat container */}
-      <div className="chat-container">
-        <Chat />
       </div>
     </>
   );
