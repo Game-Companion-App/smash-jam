@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
-import {withRouter, Link} from 'react-router-dom'
+import { Link, withRouter } from "react-router-dom";
 import Chat from "../Chat/Chat";
+import {Link, withRouter} from 'react-router-dom'
 import "./TournamentBracket.css";
 
 function TournamentBracket(props) {

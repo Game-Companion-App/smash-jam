@@ -44,11 +44,11 @@ h3 {
 .title {
   margin-top: 50px;
   margin-bottom: 20px;
-  padding-left: 20px;
+  padding-left: 50px;
   display: flex;
   color: white;
   height: 105px;
-  width: 1800px;
+  width: 100vw;
   background: repeating-linear-gradient(
     -55deg,
     #222,
@@ -122,4 +122,106 @@ h3 {
   position: absolute;
   right: 0;
   top: 10px;
+}
+
+@media only screen and (max-width: 380px) {
+  .all-fighters-container {
+    max-width: 370px;
+  }
+
+  h2 {
+    font-size: 3rem;
+    padding-top: 8px;
+  }
+
+  h3 {
+    padding-left: 5px;
+    z-index: 10;
+    max-width: 140px;
+    font-size: 1.9rem;
+  }
+
+  .fighters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 75px;
+    width: 370px;
+  }
+
+  .title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 90px;
+    width: 375px;
+    background: repeating-linear-gradient(
+      -55deg,
+      #222,
+      #222 5px,
+      #333 5px,
+      #333 10px
+    );
+  }
+
+  .fighters-box {
+    max-width: 375px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .fighter-block {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 230px;
+    width: 350px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    color: white;
+    background: repeating-linear-gradient(
+      -55deg,
+      #222,
+      #222 5px,
+      #333 5px,
+      #333 10px
+    );
+    position: relative;
+  }
+
+  .icon-image {
+    max-width: 170px;
+    max-height: 180px;
+    width: auto;
+    height: 190px;
+    position: absolute;
+    opacity: 0.5;
+    padding-top: 20px;
+    left: 20px;
+  }
+
+  .snake-icon-image {
+    max-width: 170px;
+    max-height: 180px;
+    width: auto;
+    height: 190px;
+    position: absolute;
+    opacity: 0.5;
+    padding-top: 20px;
+    left: 90px;
+  }
+
+  .fighter-image {
+    height: 200px;
+    width: 200px;
+    padding: 10px 15px;
+    align-self: center;
+    position: absolute;
+    top: 10px;
+  }
 }

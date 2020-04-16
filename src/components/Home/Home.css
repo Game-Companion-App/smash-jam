@@ -1,3 +1,99 @@
+@media (max-width: 375px) {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* max-width: initial; */
+    font-family: "Bangers", cursive;
+  }
+  
+  .slideshow {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .images {
+    background: url(https://smash-app.s3-us-west-1.amazonaws.com/panoramic.png);
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 300%;
+    animation: slideshow 100s linear infinite;
+    transform: translate3d(0, 0, 0);
+  }
+  @keyframes slideshow {
+    0% {
+      left: 0;
+    }
+    100% {
+      left: -200%;
+    }
+  }
+  
+  @keyframes moveSlideshow {
+    100% {
+      -webkit-transform: translateX(-200%);
+    }
+  }
+  
+  .nav-section {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin-top: -180px;
+    z-index: 10;
+    position: relative;
+  }
+  
+  .logo {
+    height: 150px;
+    width: 370px;
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 370px;
+  }
+  
+  .nav-button {
+    border: 4px black solid;
+    border-radius: 50%;
+    height: 110px;
+    width: 110px;
+    color: white;
+    font-size: 1.3rem;
+    background: repeating-linear-gradient(
+      -55deg,
+      #222,
+      #222 5px,
+      #333 5px,
+      #333 10px
+    );
+  }
+  
+  .button-icon {
+    height: 40px;
+    width: 40px;
+    margin-bottom: 0px;
+  }
+
+  .button-title {
+    font-size: 1.2rem;
+  }
+  
+  .game-info {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    margin: 20px 20px;
+    color: dodgerblue;
+  }
+}
+
+@media (min-width: 769px) {
 * {
   margin: 0;
   padding: 0;
@@ -84,4 +180,5 @@
   font-size: 2rem;
   margin: 50px 270px;
   color: dodgerblue;
+}
 }
