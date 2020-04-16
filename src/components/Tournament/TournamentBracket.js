@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Chat from "../Chat/Chat";
-import {Link, withRouter} from 'react-router-dom'
 import "./TournamentBracket.css";
 
 function TournamentBracket(props) {
@@ -376,6 +375,16 @@ function TournamentBracket(props) {
             className="home-icon"
           />
           Home
+        </button>
+      </Link>
+      <Link to="/fighters">
+        <button className="fighters-button">
+          <img
+            src="https://smash-app.s3-us-west-1.amazonaws.com/fight.png"
+            alt=""
+            className="arrow-icon"
+          />
+          All Fighters
         </button>
       </Link>
       {/* bracket container */}
