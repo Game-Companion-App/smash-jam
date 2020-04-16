@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   /* background-color: #202020; */
-  background: linear-gradient(270deg,#D2CCC4, #2F4353);
+  background: linear-gradient(270deg, #d2ccc4, #2f4353);
   padding: 70px 30px 130px 30px;
   display: flex;
   max-height: 3450px;
@@ -104,7 +104,6 @@
   margin: 0 auto;
   height: 50px;
 }
-
 
 .home-button {
   height: 50px;
