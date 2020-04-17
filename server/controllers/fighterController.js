@@ -13,9 +13,7 @@ module.exports = {
   getFighterById: async (req, res) => {
     const db = req.app.get("db");
 
-    console.log(req.params.id);
     let fighter = await db.get_fighter_id([req.params.id]);
-    console.log(fighter);
     if (fighter[0]) {
       let strong1 = await db.get_fighter_id([fighter[0].strong_1]);
       let strong2 = await db.get_fighter_id([fighter[0].strong_2]);

@@ -22,6 +22,8 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-scroll": "^1.7.16",
+    "react-search-box": "^2.0.2",
     "react-swipeable": "^5.5.1",
     "react-use-gesture": "^7.0.12",
     "react-use-gestures": "^0.1.2",
