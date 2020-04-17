@@ -27,19 +27,26 @@ function TournamentBracket(props) {
   const [playersR7, setplayersR7] = useState([]);
 
 
-
   useEffect(() => {
     axios
       .get("/api/standard")
       .then((res1) => {
-        let standardFighters = res1.data.map(fighter => [fighter.skin_1, fighter.fighter_name])
+        let standardFighters = res1.data.map((fighter) => [
+          fighter.skin_1,
+          fighter.fighter_name,
+        ]);
         axios
           .get("/api/dlc")
           .then((res2) => {
-            let dlcFighters = res2.data.map(fighter => [fighter.skin_1, fighter.fighter_name])
-            setFighters([...standardFighters, ...dlcFighters])
-          }).catch((err2) => console.log(err2));
-      }).catch((err1) => console.log(err1));
+            let dlcFighters = res2.data.map((fighter) => [
+              fighter.skin_1,
+              fighter.fighter_name,
+            ]);
+            setFighters([...standardFighters, ...dlcFighters]);
+          })
+          .catch((err2) => console.log(err2));
+      })
+      .catch((err1) => console.log(err1));
   }, []);
 
   useEffect(() => {
@@ -70,10 +77,10 @@ function TournamentBracket(props) {
     return seed === val ? null : setSeed(val)
   }
   const handleAddPlayers = () => {
-    let addedPlayer = Object.assign(bracketSetup)
-    addedPlayer.playersToAdd.push(newPlayer)
-    setBracketSetup(addedPlayer)
-  }
+    let addedPlayer = Object.assign(bracketSetup);
+    addedPlayer.playersToAdd.push(newPlayer);
+    setBracketSetup(addedPlayer);
+  };
   const handleAddFighters = () => {
     let addedFighter = Object.assign(bracketSetup)
     addedFighter.fightersToAdd.push(newFighter)
@@ -97,8 +104,10 @@ function TournamentBracket(props) {
   }
   
   const toggleSetupDropdown = () => {
-    setupDropdown === 'setupClosed' ? setSetupDropdown('setupOpen') : setSetupDropdown('setupClosed')
-  }
+    setupDropdown === "setupClosed"
+      ? setSetupDropdown("setupOpen")
+      : setSetupDropdown("setupClosed");
+  };
 
   const advancePlayer = (i, round) => {
     if(seed % 4 !== 0) return 
@@ -169,7 +178,7 @@ function TournamentBracket(props) {
     }
   });
   let bracketRoundThree = playersR3.map((el, i) => {
-    if(seed < 8){
+    if (seed < 8) {
       return (
         <div className="bracket-round-three">
           <svg height="100%" width="100%">
@@ -201,7 +210,7 @@ function TournamentBracket(props) {
     }
   });
   let bracketRoundFour = playersR4.map((el, i) => {
-    if(seed < 16){
+    if (seed < 16) {
       return (
         <div className="bracket-round-four">
           <svg height="100%" width="100%">
@@ -233,7 +242,7 @@ function TournamentBracket(props) {
     }
   });
   let bracketRoundFive = playersR5.map((el, i) => {
-    if(seed < 32){
+    if (seed < 32) {
       return (
         <div className="bracket-round-five">
           <svg height="100%" width="100%">
@@ -265,7 +274,7 @@ function TournamentBracket(props) {
     }
   });
   let bracketRoundSix = playersR6.map((el, i) => {
-    if(seed < 64){
+    if (seed < 64) {
       return (
         <div className="bracket-round-six">
           <svg height="100%" width="100%">
@@ -324,7 +333,7 @@ function TournamentBracket(props) {
             src={playerImgs[i]}
             alt=""
             onClick={() => advancePlayer(i, round)}
-            className='player-img'
+            className="player-img"
           />
         </div>
         <p>{name}</p>
@@ -342,7 +351,7 @@ function TournamentBracket(props) {
               src={player[1]}
               alt=""
               onClick={() => advancePlayer(i, round)}
-              className='player-img'
+              className="player-img"
             />
           </div>
           <p>{player[0]}</p>
@@ -361,7 +370,7 @@ function TournamentBracket(props) {
               src={player[1]}
               alt=""
               onClick={() => advancePlayer(i, round)}
-              className='player-img'
+              className="player-img"
             />
           </div>
           <p>{player[0]}</p>
@@ -380,7 +389,7 @@ function TournamentBracket(props) {
               src={player[1]}
               alt=""
               onClick={() => advancePlayer(i, round)}
-              className='player-img'
+              className="player-img"
             />
           </div>
           <p>{player[0]}</p>
@@ -399,7 +408,7 @@ function TournamentBracket(props) {
               src={player[1]}
               alt=""
               onClick={() => advancePlayer(i, round)}
-              className='player-img'
+              className="player-img"
             />
           </div>
           <p>{player[0]}</p>
@@ -418,7 +427,7 @@ function TournamentBracket(props) {
               src={player[1]}
               alt=""
               onClick={() => advancePlayer(i, round)}
-              className='player-img'
+              className="player-img"
             />
           </div>
           <p>{player[0]}</p>
@@ -437,7 +446,7 @@ function TournamentBracket(props) {
               src={player[1]}
               alt=""
               onClick={() => advancePlayer(i, round)}
-              className='player-img'
+              className="player-img"
             />
           </div>
           <p>{player[0]}</p>
@@ -445,7 +454,6 @@ function TournamentBracket(props) {
       );
     }
   });
-
 
   return (
     <>
@@ -459,9 +467,21 @@ function TournamentBracket(props) {
           Home
         </button>
       </Link>
+      <Link to="/fighters">
+        <button className="fighters-button">
+          <img
+            src="https://smash-app.s3-us-west-1.amazonaws.com/fight.png"
+            alt=""
+            className="arrow-icon"
+          />
+          All Fighters
+        </button>
+      </Link>
 
       {/* bracket setup dropdown */}
-      <button className='setup-button' onClick={toggleSetupDropdown}>Bracket Setup ˅</button>
+      <button className="setup-button" onClick={toggleSetupDropdown}>
+        Bracket Setup ˅
+      </button>
       <div className={`setup-dropdown ${setupDropdown}`}>
         {/* seed # */}
         <div className='add-player'>
@@ -475,50 +495,89 @@ function TournamentBracket(props) {
             <option style={{fontSize: '18px'}} value={64}> 64 </option>
           </select>
         </div>
-        
+
         {/* added players & fighters shown here */}
-        <div className='player-list'>
-          {bracketSetup.playersToAdd[0] &&
+        <div className="player-list">
+          {bracketSetup.playersToAdd[0] && (
             <>
-              <div style={{display: 'flex', flexDirection: 'column', width: '45%', overflow: 'hidden'}}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "45%",
+                  overflow: "hidden",
+                }}
+              >
                 <h4>Players</h4>
-                <ol style={{marginLeft: '30px'}}>
-                  {bracketSetup.playersToAdd.map(player => <li style={{width: 'fit-content', maxHeight: '20px', textOverflow: 'clip'}}> {player} </li>)}
+                <ol style={{ marginLeft: "30px" }}>
+                  {bracketSetup.playersToAdd.map((player) => (
+                    <li
+                      style={{
+                        width: "fit-content",
+                        maxHeight: "20px",
+                        textOverflow: "clip",
+                      }}
+                    >
+                      {" "}
+                      {player}{" "}
+                    </li>
+                  ))}
                 </ol>
               </div>
-              <div style={{display: 'flex', flexDirection: 'column', width: '45%', overflow: 'hidden'}}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "45%",
+                  overflow: "hidden",
+                }}
+              >
                 <h4>Fighters</h4>
-                <ol style={{marginLeft: '30px'}}>
-                  {bracketSetup.fightersToAdd.map(fighter => <li style={{width: 'fit-content', maxHeight: '20px', textOverflow: 'clip'}}> {fighter} </li>)}
+                <ol style={{ marginLeft: "30px" }}>
+                  {bracketSetup.fightersToAdd.map((fighter) => (
+                    <li
+                      style={{
+                        width: "fit-content",
+                        maxHeight: "20px",
+                        textOverflow: "clip",
+                      }}
+                    >
+                      {" "}
+                      {fighter}{" "}
+                    </li>
+                  ))}
                 </ol>
               </div>
             </>
-          }
+          )}
         </div>
 
         {/* add a player to the tournament */}
-        <div className='add-player'>
+        <div className="add-player">
           <input
-            onChange={ev => setNewPlayer(ev.target.value)}
+            onChange={(ev) => setNewPlayer(ev.target.value)}
             value={newPlayer}
-            placeholder='Player Name'
-            style={{height: '30px', width: '140px'}}>
-          </input>
-          <select style={{height: '30px', width: '180px'}}
-                  onChange={ev => setNewFighter(ev.target.value)}
-                  value={newFighter}>
+            placeholder="Player Name"
+            style={{ height: "30px", width: "140px" }}
+          ></input>
+          <select
+            style={{ height: "30px", width: "180px" }}
+            onChange={(ev) => setNewFighter(ev.target.value)}
+            value={newFighter}
+          >
             <option value={0}> - Select A Fighter - </option>
             {fighterOptions}
           </select>
           <button
-            style={{height: '30px', padding: '0 5px'}}
+            style={{ height: "30px", padding: "0 5px" }}
             onClick={() => {
-              handleAddPlayers()
-              setNewPlayer('')
-              handleAddFighters()
-              // setNewFighter('')
+              handleAddPlayers();
+              setNewPlayer("");
+              handleAddFighters();
             }}
-          >Add</button>
+          >
+            Add
+          </button>
         </div>
 
         {/* generate new bracket */}
@@ -529,9 +588,9 @@ function TournamentBracket(props) {
         </button>
 
       </div>
-      
+
       <Chat />
-      
+
       {/* bracket container */}
       <div className="bracket-container">
         <div className="bracket-round-container"> {bracketRoundOne} </div>

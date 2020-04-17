@@ -1,22 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import useSocket from 'use-socket.io-client';
-import { useImmer } from 'use-immer';
+import React, { useState, useEffect } from "react";
+import useSocket from "use-socket.io-client";
+import { useImmer } from "use-immer";
+import "./Chat.css";
 
-import './Chat.css';
+const Messages = (props) =>
+  props.data.map((m) =>
+    m[0] !== "" ? (
+      <li>
+        <strong>{m[0]}:</strong> <div className="innermsg">{m[1]}</div>
+      </li>
+    ) : (
+      <li className="update">{m[1]}</li>
+    )
+  );
 
-const Messages = props => props.data.map(m => m[0] !== '' ? (<li><strong>{m[0]}:</strong> <div className="innermsg">{m[1]}</div></li>) : (<li className="update">{m[1]}</li>) );
-
-const Online = props => props.data.map(m => <li id={m[0]}>{m[1]}</li>);
+const Online = (props) => props.data.map((m) => <li id={m[0]}>{m[1]}</li>);
 
 export default () => {
-  const [chatSize, setChatSize] = useState('collapsed')
-  
-  const [id, setId] = useState('');
-  const [nameInput, setNameInput] = useState('');
-  const [room, setRoom] = useState('');
-  const [input, setInput] = useState('');
+  const [chatSize, setChatSize] = useState("collapsed");
 
-  const [socket] = useSocket('https://open-chat-naostsaecf.now.sh');
+  const [id, setId] = useState("");
+  const [nameInput, setNameInput] = useState("");
+  const [room, setRoom] = useState("");
+  const [input, setInput] = useState("");
+
+  const [socket] = useSocket("https://open-chat-naostsaecf.now.sh");
   socket.connect();
 
   const [messages, setMessages] = useImmer([]);
@@ -33,10 +41,10 @@ export default () => {
       draft.push(['',message]);
     }));
 
-    socket.on('people-list',people => {
+    socket.on("people-list", (people) => {
       let newState = [];
-      for(let person in people){
-        newState.push([people[person].id,people[person].nick]);
+      for (let person in people) {
+        newState.push([people[person].id, people[person].nick]);
       }
       setOnline(draft=>{draft.push(...newState)});
       console.log(online)
@@ -48,16 +56,18 @@ export default () => {
       })
     });
 
-    socket.on('remove-person',id=>{
-      setOnline(draft => draft.filter(m => m[0] !== id))
+    socket.on("remove-person", (id) => {
+      setOnline((draft) => draft.filter((m) => m[0] !== id));
     });
 
-    socket.on('chat message',(nick,message)=>{
-      setMessages(draft => {draft.push([nick,message])})
+    socket.on("chat message", (nick, message) => {
+      setMessages((draft) => {
+        draft.push([nick, message]);
+      });
     });
   }, []);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!nameInput) {
       return alert("Name can't be empty");
@@ -66,11 +76,11 @@ export default () => {
     socket.emit("join", nameInput, room);
   };
 
-  const handleSend = e => {
+  const handleSend = (e) => {
     e.preventDefault();
-    if(input !== ''){
-      socket.emit('chat message',input,room);
-      setInput('');
+    if (input !== "") {
+      socket.emit("chat message", input, room);
+      setInput("");
     }
   };
 

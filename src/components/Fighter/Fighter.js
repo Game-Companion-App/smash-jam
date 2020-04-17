@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import ReactPlayer from "react-player";
 import axios from "axios";
 import "./Fighter.css";
@@ -42,10 +43,6 @@ function Fighter(props) {
     fighter.skin_7,
     fighter.skin_8,
   ];
-
-  console.log(fighter);
-  console.log(strongs);
-  console.log(weaks);
 
   if (weaks.weak3) {
     return (
@@ -116,8 +113,10 @@ function Fighter(props) {
           <div className="video-container">
             <ReactPlayer
               url={fighter.fighter_video}
+              key={fighter.fighter_video}
               width={"100%"}
               height={"100%"}
+              controls={true}
             />
           </div>
 
@@ -140,6 +139,9 @@ function Fighter(props) {
                       src={strongs.strong1.skin_1}
                       className="counters-image"
                       alt=""
+                      onClick={() => {
+                        scroll.scrollTo(0);
+                      }}
                     />
                   </div>
                 </Link>
@@ -154,6 +156,9 @@ function Fighter(props) {
                       src={strongs.strong2.skin_1}
                       className="counters-image"
                       alt=""
+                      onClick={() => {
+                        scroll.scrollTo(0);
+                      }}
                     />
                   </div>
                 </Link>
@@ -168,6 +173,9 @@ function Fighter(props) {
                       src={strongs.strong3.skin_1}
                       className="counters-image"
                       alt=""
+                      onClick={() => {
+                        scroll.scrollTo(0);
+                      }}
                     />
                   </div>
                 </Link>
@@ -185,6 +193,9 @@ function Fighter(props) {
                       src={weaks.weak1.skin_1}
                       className="counters-image"
                       alt=""
+                      onClick={() => {
+                        scroll.scrollTo(0);
+                      }}
                     />
                   </div>
                 </Link>
@@ -199,6 +210,9 @@ function Fighter(props) {
                       src={weaks.weak2.skin_1}
                       className="counters-image"
                       alt=""
+                      onClick={() => {
+                        scroll.scrollTo(0);
+                      }}
                     />
                   </div>
                 </Link>
@@ -213,6 +227,9 @@ function Fighter(props) {
                       src={weaks.weak3.skin_1}
                       className="counters-image"
                       alt=""
+                      onClick={() => {
+                        scroll.scrollTo(0);
+                      }}
                     />
                   </div>
                 </Link>
