@@ -122,6 +122,23 @@
   padding-bottom: 2.7px;
 }
 
+.fighters-button {
+  height: 50px;
+  width: 130px;
+  background-color: red;
+  color: white;
+  font-size: 1.2rem;
+  position: fixed;
+  left: 85px;
+  z-index: 15;
+}
+
+.arrow-icon {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+}
+
 .setup-button {
   z-index: 10;
   position: fixed;
