@@ -1,18 +1,17 @@
 .bracket-container {
   position: relative;
   width: 100%;
-  /* background-color: #202020; */
-  background: linear-gradient(270deg, #d2ccc4, #2f4353);
+  background: linear-gradient(270deg,#D2CCC4, #2F4353);
   padding: 70px 30px 130px 30px;
   display: flex;
+  min-height: 100vh;
   max-height: 3450px;
   overflow-y: hidden;
 }
 .bracket-round-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  /* min-height: fit-content; */
+  max-height: fit-content;
 }
 .bracket-round-one,
 .bracket-round-two,
@@ -95,8 +94,6 @@
   height: 55px;
   width: 55px;
   margin: -3px 0 0 -55px;
-  background-color: black;
-  border-radius: 50%;
   cursor: pointer;
   display: flex;
 }
@@ -187,4 +184,23 @@
   display: flex;
   justify-content: space-evenly;
   text-align: center;
+}
+
+.generate-button {
+  position: absolute;
+  bottom: 20px;
+  left: 120px;
+  width: 160px;
+  height: 40px;
+  transition: 0.1s;
+}
+.generate-button:hover {
+  background-color: #ff0000;
+  height: 45px;
+  width: 170px;
+  transition: 0.2s;
+  left: 115px;
+  bottom: 17px;
+  font-size: x-large;
+  color: whitesmoke;
 }
