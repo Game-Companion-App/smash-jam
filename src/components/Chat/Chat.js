@@ -30,34 +30,30 @@ export default () => {
   const [messages, setMessages] = useImmer([]);
   const [online, setOnline] = useImmer([]);
 
-  useEffect(() => {
-    socket.on("message que", (nick, message) => {
-      setMessages((draft) => {
-        draft.push([nick, message]);
-      });
+  useEffect(()=>{
+    socket.on('message que',(nick,message) => {
+      setMessages(draft => {
+        draft.push([nick,message])
+      })
     });
 
-    socket.on("update", (message) =>
-      setMessages((draft) => {
-        draft.push(["", message]);
-      })
-    );
+    socket.on('update',message => setMessages(draft => {
+      draft.push(['',message]);
+    }));
 
     socket.on("people-list", (people) => {
       let newState = [];
       for (let person in people) {
         newState.push([people[person].id, people[person].nick]);
       }
-      setOnline((draft) => {
-        draft.push(...newState);
-      });
-      console.log(online);
+      setOnline(draft=>{draft.push(...newState)});
+      console.log(online)
     });
 
-    socket.on("add-person", (nick, id) => {
-      setOnline((draft) => {
-        draft.push([id, nick]);
-      });
+    socket.on('add-person',(nick,id)=>{
+      setOnline(draft => {
+        draft.push([id,nick])
+      })
     });
 
     socket.on("remove-person", (id) => {
@@ -90,69 +86,32 @@ export default () => {
 
   return id ? (
     <section className={`chat chat-${chatSize}`}>
-      {chatSize === "collapsed" ? (
-        <div
-          className="chat-size-toggle"
-          onClick={() => setChatSize("expanded")}
-        >
-          ︽
-        </div>
-      ) : (
-        <div
-          className="chat-size-toggle"
-          onClick={() => setChatSize("collapsed")}
-        >
-          ︾
-        </div>
-      )}
-      <div id="online">
-        Online: <Online data={online} />{" "}
-      </div>
-      <div className="chat-box">
-        <div id="messages">
-          <Messages data={messages} />
-        </div>
-        <div className="chat-message-input">
-          <form onSubmit={(e) => handleSend(e)} style={{ display: "flex" }}>
-            <input
-              id="m"
-              onChange={(e) => setInput(e.target.value.trim())}
-              value={input}
-            />
-            <button style={{ width: "75px" }} type="submit">
-              Send
-            </button>
+      {chatSize === 'collapsed' ?
+          <div className='chat-size-toggle' onClick={() => setChatSize('expanded')}>︽</div>
+        :
+          <div className='chat-size-toggle' onClick={() => setChatSize('collapsed')}>︾</div>
+      }
+      <div id="online">Online: <Online data={online} /> </div>
+      <div className='chat-box'>
+        <div id="messages"><Messages data={messages} /></div>
+        <div className='chat-message-input'>
+          <form onSubmit={e => handleSend(e)} style={{display: 'flex'}}>
+              <input id="m" onChange={e=>setInput(e.target.value)} value={input} /><button style={{width:'75px'}} type="submit">Send</button>
           </form>
         </div>
       </div>
     </section>
   ) : (
     <div className={`login chat-${chatSize}`}>
-      {chatSize === "collapsed" ? (
-        <div
-          className="chat-size-toggle"
-          onClick={() => setChatSize("expanded")}
-        >
-          ︽
-        </div>
-      ) : (
-        <div
-          className="chat-size-toggle"
-          onClick={() => setChatSize("collapsed")}
-        >
-          ︾
-        </div>
-      )}
-      <div className="chat-login-input">
-        <form onSubmit={(event) => handleSubmit(event)}>
-          <input
-            id="name"
-            onChange={(e) => setNameInput(e.target.value.trim())}
-            required
-            placeholder="Pick A Username"
-          />
-          <br />
-          {/* <input id="room" onChange={e => setRoom(e.target.value.trim())} placeholder="Room Name" /><br /> */}
+    {chatSize === 'collapsed' ?
+        <div className='chat-size-toggle' onClick={() => setChatSize('expanded')}>︽</div>
+      :
+        <div className='chat-size-toggle' onClick={() => setChatSize('collapsed')}>︾</div>
+    }
+      <div className='chat-login-input'>
+        <form onSubmit={event => handleSubmit(event)}>
+          <input id="name" onChange={e => setNameInput(e.target.value)} required placeholder="Pick A Username" /><br />
+          {/* <input id="room" onChange={e => setRoom(e.target.value)} placeholder="Room Name" /><br /> */}
           <button type="submit">Join Chat</button>
         </form>
       </div>

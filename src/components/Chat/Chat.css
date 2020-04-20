@@ -1,8 +1,8 @@
 .chat * {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .chat-size-toggle {
-  z-index: 5;
+  z-index: 10;
   color: whitesmoke;
   font-weight: bold;
   position: absolute;
@@ -16,7 +16,7 @@
 }
 
 .login {
-  z-index: 1;
+  z-index: 10;
   position: fixed;
   bottom: 0;
   width: 100vw;
@@ -30,7 +30,7 @@
   transition: 1s;
 }
 .chat {
-  z-index: 5;
+  z-index: 10;
   position: fixed;
   bottom: 0;
   width: 100vw;
