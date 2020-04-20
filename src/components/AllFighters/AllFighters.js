@@ -31,8 +31,6 @@ function AllFighters() {
     return element.fighter_name.includes(searchInput.toUpperCase());
   });
 
-  console.log(searchedFighters);
-
   return (
     <div className="all-fighters-container">
       <Link to="/">
