@@ -1,7 +1,7 @@
 import React from "react";
 import News from "../News/News";
 import { Link, withRouter } from "react-router-dom";
-import "./Home.css";
+import "./Home.scss";
 
 function Home() {
   return (

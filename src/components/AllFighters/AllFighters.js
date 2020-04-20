@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-import "./AllFighters.css";
+import "./AllFighters.scss";
 
 function AllFighters() {
   const [dlcFighters, setDlcFighters] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useSocket from "use-socket.io-client";
 import { useImmer } from "use-immer";
-import "./Chat.css";
+import "./Chat.scss";
 
 const Messages = (props) =>
   props.data.map((m) =>

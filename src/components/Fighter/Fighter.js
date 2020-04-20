@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import ReactPlayer from "react-player";
 import axios from "axios";
-import "./Fighter.css";
+import "./Fighter.scss";
 
 function Fighter(props) {
   const [fighter, setFighter] = useState({});

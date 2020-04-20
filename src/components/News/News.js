@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import axios from "axios";
-import "./News.css";
+import "./News.scss";
 
 // const { NEWS_API_KEY } = process.env;
 
