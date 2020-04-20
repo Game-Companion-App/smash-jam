@@ -173,6 +173,22 @@ input:focus::-webkit-input-placeholder {
     font-size: 1.9rem;
   }
 
+  .input-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 70px;
+    margin-bottom: -70px;
+  }
+
+  .input-box {
+    display: flex;
+    height: 70px;
+    width: 350px;
+    padding-left: 10px;
+    font-size: 2.7rem;
+    border: solid black 5px;
+  }
+
   .fighters-container {
     display: flex;
     flex-direction: column;
