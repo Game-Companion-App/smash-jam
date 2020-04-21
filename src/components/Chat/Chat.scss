@@ -1,7 +1,6 @@
 .chat * {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
 .chat-size-toggle {
   z-index: 10;
   color: whitesmoke;
@@ -22,26 +21,14 @@
   bottom: 0;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.9);
-  -webkit-backdrop-filter: blur(3px);
-          backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
   height: 14vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-transition: 1s;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   transition: 1s;
 }
-
 .chat {
   z-index: 10;
   position: fixed;
@@ -50,30 +37,19 @@
   height: 11vh;
   padding: 20px 15vw 0 15vw;
   background-color: rgba(0, 0, 0, 0.9);
-  -webkit-backdrop-filter: blur(3px);
-          backdrop-filter: blur(3px);
-  display: -webkit-box;
-  display: -ms-flexbox;
+  backdrop-filter: blur(3px);
   display: flex;
   color: whitesmoke;
-  -webkit-transition: 1s;
   transition: 1s;
 }
-
 .chat-login-input form {
   width: 90vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
-
 .chat-login-input button {
   padding: 5px 10px;
 }
-
 .chat-message-input form {
   position: absolute;
   width: 98%;
@@ -86,47 +62,36 @@
   width: 80%;
   padding: 10px;
 }
-
 #online {
   padding: 10px;
   width: 20%;
 }
-
 #messages {
   padding: 10px;
   height: 41vh;
   overflow: scroll;
   width: 100%;
 }
-
 #m {
   width: 100%;
 }
-
 #messages li {
   list-style: none;
   background-color: #303235;
   margin: 3px 0;
   padding: 5px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
 }
-
 #messages li * {
   margin: 0 10px;
 }
-
 .innermsg {
   overflow-wrap: anywhere;
 }
 
 .chat-expanded {
   height: 50vh;
-  -webkit-transition: 1s;
   transition: 1s;
 }
 
@@ -151,4 +116,3 @@
     padding: 0;
   }
 }
-/*# sourceMappingURL=Chat.css.map */

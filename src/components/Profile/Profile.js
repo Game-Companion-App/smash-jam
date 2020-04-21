@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import profileButton from '../../assets/profile_button.png'
 import closeIcon from '../../assets/close_icon.png'
-import './Profile.css'
+import './Profile.scss'
 
 function Profile(props) {
   const [sidebarFull, setSidebarFull] = useState('300px')
   const [sidebarMini, setSidebarMini] = useState('0px')
   const [authVisibility, setAuthVisibility] = useState('hidden')
-  const [authBox, setAuthBox] = useState('login')
+  const [authBox, setAuthBox] = useState('auth-login')
 
 
   const toggleAuth = () => {
@@ -18,14 +18,18 @@ function Profile(props) {
     <>
 
       {/* sidebar closed */}
-      <img  src={profileButton}
-            onClick={() => {
-              setSidebarMini('100px')
-              setSidebarFull('0px')
-            }}
-            style={{transform: `translateX(${sidebarMini})`}}
-            alt='default profile'
-            className='profile-closed'/>
+      <div className='profile-closed'>
+        <img  src={profileButton}
+              onClick={() => {
+                setSidebarMini('100px')
+                setSidebarFull('0px')
+              }}
+              style={{transform: `translateX(${sidebarMini})`}}
+              alt='default profile'/>
+        <svg>
+          <polygon points='0 0, 40 85, 120 85, 120 0' style={{fill: 'red'}}></polygon>
+        </svg>
+      </div>
     
       {/* sidebar open */}
       <div  className='profile-open'
@@ -47,30 +51,33 @@ function Profile(props) {
         </div>
 
         {/* authentication toggle */}
-        <div className='profile-links'>
-          <p  className='profile-link-item'
-              onClick={() => {
-                toggleAuth()
-                setAuthBox('login')
-              }}>Login</p>
-          <p>/</p>
-          <p  className='profile-link-item'
-              onClick={() => {
-                toggleAuth()
-                setAuthBox('register')
-              }}>Sign Up</p>
-        </div>
+          <div className='profile-links'>
+            <p  className='profile-link-item'
+                onClick={() => {
+                  toggleAuth()
+                  setAuthBox('auth-login')
+                }}>Login</p>
+            <p>-</p>
+            <p  className='profile-link-item'
+                onClick={() => {
+                  toggleAuth()
+                  setAuthBox('auth-register')
+                }}>Sign Up</p>
+          </div>
+
           <div className={`${authVisibility}`}>
-            {authBox === 'login' ?
-                <div className={`auth-box login ${authVisibility}`}>
-                  <div>Username:</div> <input placeholder='Username or Email'></input>
-                  <div>Password:</div> <input placeholder='Password' type='password'></input>
+            {authBox === 'auth-login' ?
+                <div className={`auth-box ${authVisibility}`}>
+                  <input placeholder='Username or Email'></input>
+                  <input placeholder='Password' type='password'></input>
+                  <button>Login</button>
                 </div>
               :
-                <div className={`auth-box register ${authVisibility}`}>
-                  <div>Username:</div> <input placeholder='Username'></input>
-                  <div>Email:</div> <input placeholder='Email'></input>
-                  <div>Password:</div> <input placeholder='Password' type='password'></input>
+                <div className={`auth-box ${authVisibility}`}>
+                  <input placeholder='Username'></input>
+                  <input placeholder='Email'></input>
+                  <input placeholder='Password' type='password'></input>
+                  <button>Create Account</button>
                 </div>
             }
           </div>
@@ -85,11 +92,11 @@ function Profile(props) {
         {/* main characters */}
         <p className='section'>Main Character(s):</p>
         <div className='mains'>
-          <img className='main-pics' alt=''/>
+          <img alt=''/>
           <p>Mario</p>
         </div>
         <div className='mains'>
-          <img className='main-pics' alt=''/>
+          <img alt=''/>
           <p>Yoshi</p>
         </div>
 

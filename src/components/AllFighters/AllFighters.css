@@ -1,7 +1,8 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-family: "Bangers", cursive;
 }
 
@@ -35,19 +36,37 @@ h3 {
 }
 
 .input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding-top: 70px;
   margin-bottom: -70px;
 }
 
 .input-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 70px;
   width: 500px;
   padding-left: 10px;
   font-size: 2.7rem;
   border: solid black 5px;
+}
+
+::-webkit-input-placeholder {
+  color: black;
+}
+
+:-ms-input-placeholder {
+  color: black;
+}
+
+::-ms-input-placeholder {
+  color: black;
 }
 
 ::placeholder {
@@ -59,17 +78,29 @@ input:focus::-webkit-input-placeholder {
 }
 
 .searched-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-top: 150px;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   width: 100vw;
 }
 
 .fighters-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding-top: 75px;
 }
 
@@ -77,50 +108,56 @@ input:focus::-webkit-input-placeholder {
   margin-top: 50px;
   margin-bottom: 20px;
   padding-left: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   color: white;
   height: 105px;
   width: 100vw;
-  background: repeating-linear-gradient(
-    -55deg,
-    #222,
-    #222 5px,
-    #333 5px,
-    #333 10px
-  );
+  background: repeating-linear-gradient(-55deg, #222, #222 5px, #333 5px, #333 10px);
 }
 
 .fighters-box {
   max-width: 1800px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .fighter-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   height: 230px;
   width: 350px;
   margin: 5px;
   padding-top: 5px;
   color: white;
-  background: repeating-linear-gradient(
-    -55deg,
-    #222,
-    #222 5px,
-    #333 5px,
-    #333 10px
-  );
+  background: repeating-linear-gradient(-55deg, #222, #222 5px, #333 5px, #333 10px);
   position: relative;
 }
 
 .column-1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .column-2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -150,7 +187,9 @@ input:focus::-webkit-input-placeholder {
   height: 200px;
   width: 200px;
   padding: 10px 15px;
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   position: absolute;
   right: 0;
   top: 10px;
@@ -160,88 +199,77 @@ input:focus::-webkit-input-placeholder {
   .all-fighters-container {
     max-width: 370px;
   }
-
   h2 {
     font-size: 3rem;
     padding-top: 8px;
   }
-
   h3 {
     padding-left: 5px;
     z-index: 10;
     max-width: 140px;
     font-size: 1.9rem;
   }
-
-  .input-container {
-    display: flex;
-    justify-content: center;
-    padding-top: 70px;
-    margin-bottom: -70px;
-  }
-
-  .input-box {
-    display: flex;
-    height: 70px;
-    width: 350px;
-    padding-left: 10px;
-    font-size: 2.7rem;
-    border: solid black 5px;
-  }
-
   .fighters-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     padding-top: 75px;
     width: 370px;
   }
-
   .title {
     margin-top: 0;
     margin-bottom: 10px;
     padding-left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     color: white;
     height: 90px;
     width: 375px;
-    background: repeating-linear-gradient(
-      -55deg,
-      #222,
-      #222 5px,
-      #333 5px,
-      #333 10px
-    );
+    background: repeating-linear-gradient(-55deg, #222, #222 5px, #333 5px, #333 10px);
   }
-
   .fighters-box {
     max-width: 375px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
   }
-
   .fighter-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     height: 230px;
     width: 350px;
     margin-bottom: 10px;
     padding-top: 5px;
     color: white;
-    background: repeating-linear-gradient(
-      -55deg,
-      #222,
-      #222 5px,
-      #333 5px,
-      #333 10px
-    );
+    background: repeating-linear-gradient(-55deg, #222, #222 5px, #333 5px, #333 10px);
     position: relative;
   }
-
   .icon-image {
     max-width: 170px;
     max-height: 180px;
@@ -252,7 +280,6 @@ input:focus::-webkit-input-placeholder {
     padding-top: 20px;
     left: 20px;
   }
-
   .snake-icon-image {
     max-width: 170px;
     max-height: 180px;
@@ -263,13 +290,15 @@ input:focus::-webkit-input-placeholder {
     padding-top: 20px;
     left: 90px;
   }
-
   .fighter-image {
     height: 200px;
     width: 200px;
     padding: 10px 15px;
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
     position: absolute;
     top: 10px;
   }
 }
+/*# sourceMappingURL=AllFighters.css.map */
