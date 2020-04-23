@@ -60,6 +60,7 @@
   .carousel {
     background: repeating-linear-gradient(-55deg, #222, #222 5px, #333 5px, #333 10px);
     min-width: 100%;
+    min-height: 300px;
   }
   .article-block {
     display: -webkit-box;
