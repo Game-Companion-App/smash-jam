@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import axios from "axios";
-import "./News.scss";
-
-// const { NEWS_API_KEY } = process.env;
+import "./News.css";
 
 function News() {
   const [feed, setFeed] = useState([]);
@@ -13,16 +11,17 @@ function News() {
     setIndex(selectedIndex);
   };
 
+  let currentDate = new Date()
+  let apiKeyExpiration = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}`
+
   useEffect(() => {
     axios
       .get(
-        `https://newsapi.org/v2/everything?qInTitle=super AND smash AND bros AND ultimate&from=2020-03-20&sortBy=popularity&language=en&apiKey=9f1fcd95c1244f438211616327d43374`
+        `https://newsapi.org/v2/everything?qInTitle=super AND smash AND bros AND ultimate&from=${apiKeyExpiration}&sortBy=popularity&language=en&apiKey=74ff612ea2fa4f02834b45e190acdb1a`
       )
       .then((res) => setFeed(res.data.articles))
       .catch((err) => console.log(err));
   }, []);
-
-    
 
   let newFeed = feed.map((e, i) => {
     for (let i = 0; i < feed.length; i++) {
@@ -54,9 +53,9 @@ function News() {
   });
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <Carousel activeIndex={index} onSelect={handleSelect} fade={true} indicators={false} className='carousel'>
-       {newFeed}
+    <div style={{ display: "flex", justifyContent: "center"}}>
+      <Carousel activeIndex={index} onSelect={handleSelect} fade={true} indicators={false} className='carousel' >
+        {newFeed}
     
       </Carousel>
     </div>
