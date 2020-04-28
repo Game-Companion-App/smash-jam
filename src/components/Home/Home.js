@@ -31,7 +31,7 @@ function Home() {
               <p className='button-title'>Fighters</p>
             </button>
           </Link>
-          <Link to="/bracket">
+          <Link to="/tournaments">
             <button className="nav-button">
               <img
                 className="button-icon"
