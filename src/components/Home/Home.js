@@ -28,10 +28,10 @@ function Home() {
                 alt=""
               />
               <br />
-              <p className='button-title'>Fighters</p>
+              <p className="button-title">Fighters</p>
             </button>
           </Link>
-          <Link to="/bracket">
+          <Link to="/tournaments">
             <button className="nav-button">
               <img
                 className="button-icon"
@@ -39,7 +39,7 @@ function Home() {
                 alt=""
               />
               <br />
-              <p className='button-title'>Tournaments</p>
+              <p className="button-title">Tournaments</p>
             </button>
           </Link>
         </div>
