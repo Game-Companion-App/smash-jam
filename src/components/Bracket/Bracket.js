@@ -4,7 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import Chat from "../Chat/Chat";
 import "./Bracket.scss";
 
-function TournamentBracket(props) {
+function Bracket(props) {
   // all fighters to choose from
   const [seed, setSeed] = useState(0)
   const [fighters, setFighters] = useState([]);
@@ -467,14 +467,14 @@ function TournamentBracket(props) {
           Home
         </button>
       </Link>
-      <Link to="/fighters">
+      <Link to="/tournaments">
         <button className="fighters-button">
           <img
-            src="https://smash-app.s3-us-west-1.amazonaws.com/fight.png"
+            src="https://smash-app.s3-us-west-1.amazonaws.com/tournament.png"
             alt=""
             className="arrow-icon"
           />
-          All Fighters
+          Tournaments
         </button>
       </Link>
 
@@ -614,4 +614,4 @@ function TournamentBracket(props) {
   );
 }
 
-export default withRouter(TournamentBracket);
+export default withRouter(Bracket);
