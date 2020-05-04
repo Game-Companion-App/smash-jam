@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
+const socketio = require('socket.io')
+const http = require('http')
 
 // controller imports
 const authCtrl = require('./controllers/authController');
@@ -12,7 +14,11 @@ const skinsCtrl = require('./controllers/skinsController');
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 
 const app = express();
+const server = http.createServer(app)
+const io = socketio(server)
 app.use(express.json());
+
+
 app.use(
 	session({
 		resave: false,
@@ -33,7 +39,13 @@ massive({
 });
 
 //SOCKET.IO
+io.on('connection', socket => {
+  console.log('new connection')
 
+  socket.on('disconnect', () => {
+    console.log('user left')
+  })
+})
 
 
 // AUTH ENDPOINTS

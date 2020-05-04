@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import './Tournaments.scss'
 
 function Tournaments() {
   return (
