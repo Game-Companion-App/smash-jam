@@ -132,6 +132,7 @@ function Fighter(props) {
                 <Link
                   to={`/fighter/${strongs.strong1.fighter_id}`}
                   params={{ fighterID: strongs.strong1.fighter_id }}
+                  onClick={() => setSkinCounter(0)}
                 >
                   <div className="counters-image-holder">
                     <h5>{strongs.strong1.fighter_name}</h5>
@@ -149,6 +150,7 @@ function Fighter(props) {
                 <Link
                   to={`/fighter/${strongs.strong2.fighter_id}`}
                   params={{ fighterID: strongs.strong2.fighter_id }}
+                  onClick={() => setSkinCounter(0)}
                 >
                   <div className="counters-image-holder">
                     <h5>{strongs.strong2.fighter_name}</h5>
@@ -166,6 +168,7 @@ function Fighter(props) {
                 <Link
                   to={`/fighter/${strongs.strong3.fighter_id}`}
                   params={{ fighterID: strongs.strong3.fighter_id }}
+                  onClick={() => setSkinCounter(0)}
                 >
                   <div className="counters-image-holder">
                     <h5>{strongs.strong3.fighter_name}</h5>
@@ -186,6 +189,7 @@ function Fighter(props) {
                 <Link
                   to={`/fighter/${weaks.weak1.fighter_id}`}
                   params={{ fighterID: weaks.weak1.fighter_id }}
+                  onClick={() => setSkinCounter(0)}
                 >
                   <div className="counters-image-holder">
                     <h5>{weaks.weak1.fighter_name}</h5>
@@ -203,6 +207,7 @@ function Fighter(props) {
                 <Link
                   to={`/fighter/${weaks.weak2.fighter_id}`}
                   params={{ fighterID: weaks.weak2.fighter_id }}
+                  onClick={() => setSkinCounter(0)}
                 >
                   <div className="counters-image-holder">
                     <h5>{weaks.weak2.fighter_name}</h5>
@@ -220,6 +225,7 @@ function Fighter(props) {
                 <Link
                   to={`/fighter/${weaks.weak3.fighter_id}`}
                   params={{ fighterID: weaks.weak3.fighter_id }}
+                  onClick={() => setSkinCounter(0)}
                 >
                   <div className="counters-image-holder">
                     <h5>{weaks.weak3.fighter_name}</h5>

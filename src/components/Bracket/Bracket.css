@@ -1,18 +1,30 @@
 .bracket-container {
   position: relative;
   width: 100%;
-  background: linear-gradient(270deg,#D2CCC4, #2F4353);
+  background: -webkit-gradient(linear, right top, left top, from(#d2ccc4), to(#2f4353));
+  background: linear-gradient(270deg, #d2ccc4, #2f4353);
   padding: 70px 30px 130px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   min-height: 100vh;
   max-height: 3450px;
   overflow-y: hidden;
 }
+
 .bracket-round-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-height: -webkit-fit-content;
+  max-height: -moz-fit-content;
   max-height: fit-content;
 }
+
 .bracket-round-one,
 .bracket-round-two,
 .bracket-round-three,
@@ -24,26 +36,32 @@
   height: 60px;
   margin: 20px 0;
 }
+
 .bracket-round-two {
   height: 110px;
   margin: 45px 0 45px -10px;
 }
+
 .bracket-round-three {
   height: 210px;
   margin: 95px 0 95px -10px;
 }
+
 .bracket-round-four {
   height: 410px;
   margin: 195px 0 195px -10px;
 }
+
 .bracket-round-five {
   height: 810px;
   margin: 395px 0 395px -10px;
 }
+
 .bracket-round-six {
   height: 1610px;
   margin: 795px 0 795px -10px;
 }
+
 .bracket-round-seven {
   height: 20px;
   margin: 1595px 0 1595px -10px;
@@ -52,12 +70,16 @@
 .players-container {
   position: absolute;
   z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   max-height: 3400px;
 }
+
 .players-round-container {
   color: whitesmoke;
 }
+
 .players-round-one,
 .players-round-two,
 .players-round-three,
@@ -70,24 +92,31 @@
   width: 100px;
   margin-left: 30px;
 }
+
 .players-round-two {
   margin: 25px 0 50px 62px;
 }
+
 .players-round-three {
   margin: 75px 0 150px 60px;
 }
+
 .players-round-four {
   margin: 175px 0 350px 60px;
 }
+
 .players-round-five {
   margin: 375px 0 750px 60px;
 }
+
 .players-round-six {
   margin: 775px 0 1550px 60px;
 }
+
 .players-round-seven {
   margin: 1580px 0 0 60px;
 }
+
 .player-img-container {
   position: absolute;
   z-index: 1;
@@ -95,8 +124,11 @@
   width: 55px;
   margin: -3px 0 0 -55px;
   cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
+
 .player-img {
   margin: 0 auto;
   height: 50px;
@@ -121,7 +153,7 @@
 
 .fighters-button {
   height: 50px;
-  width: 130px;
+  width: 150px;
   background-color: red;
   color: white;
   font-size: 1.2rem;
@@ -147,10 +179,13 @@
 
 .setup-dropdown {
   background: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   border: 2px solid whitesmoke;
+  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
+
 .setupClosed {
   height: 0;
   width: 120px;
@@ -161,6 +196,7 @@
   margin-top: -5px;
   overflow: hidden;
 }
+
 .setupOpen {
   height: 600px;
   width: 400px;
@@ -173,16 +209,26 @@
 }
 
 .add-player {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 10px;
 }
 
 .player-list {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-evenly;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   text-align: center;
 }
 
@@ -192,15 +238,19 @@
   left: 120px;
   width: 160px;
   height: 40px;
+  -webkit-transition: 0.1s;
   transition: 0.1s;
 }
+
 .generate-button:hover {
   background-color: #ff0000;
   height: 45px;
   width: 170px;
+  -webkit-transition: 0.2s;
   transition: 0.2s;
   left: 115px;
   bottom: 17px;
   font-size: x-large;
   color: whitesmoke;
 }
+/*# sourceMappingURL=Bracket.css.map */

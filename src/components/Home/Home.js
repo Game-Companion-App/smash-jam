@@ -28,7 +28,7 @@ function Home() {
                 alt=""
               />
               <br />
-              <p className='button-title'>Fighters</p>
+              <p className="button-title">Fighters</p>
             </button>
           </Link>
           <Link to="/tournaments">
@@ -39,7 +39,7 @@ function Home() {
                 alt=""
               />
               <br />
-              <p className='button-title'>Tournaments</p>
+              <p className="button-title">Tournaments</p>
             </button>
           </Link>
         </div>

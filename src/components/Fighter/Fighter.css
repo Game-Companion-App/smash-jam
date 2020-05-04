@@ -274,6 +274,7 @@ h1 {
 .fighter-skins {
   height: 650px;
   width: 650px;
+  cursor: pointer;
 }
 
 /* EXCEPTION SECTION */
