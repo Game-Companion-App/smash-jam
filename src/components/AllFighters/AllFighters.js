@@ -43,6 +43,16 @@ function AllFighters() {
           Home
         </button>
       </Link>
+      <Link to="/tournaments">
+        <button className="fighters-button">
+          <img
+            src="https://smash-app.s3-us-west-1.amazonaws.com/tournament.png"
+            alt=""
+            className="arrow-icon"
+          />
+          Tournaments
+        </button>
+      </Link>
       {/* INPUT BOX SECTION */}
       <div className="input-container">
         <input
