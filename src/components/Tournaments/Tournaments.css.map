@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "AllTournaments.scss"
+        "Tournaments.scss"
     ],
     "names": [],
-    "file": "AllTournaments.css"
+    "file": "Tournaments.css"
 }
