@@ -26,12 +26,18 @@ module.exports = {
     return res.status(200).send(tournament_key);
   },
 
-  deleteTournament: (req, res) => {
+  deleteTournament: async (req, res) => {
+    const { id } = req.params;
     const db = req.app.get("db");
 
-    db.deleteTournament();
+    await db.delete_tournament(id);
 
-    return res.sendStatus(200);
+    try {
+      let allTournaments = await db.delete_tournament(id);
+      return res.status(200).send(allTournaments);
+    } catch (error) {
+      return res.sendStatus(500);
+    }
   },
 
   getTournaments: async (req, res) => {

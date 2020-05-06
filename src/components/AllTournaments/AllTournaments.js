@@ -13,7 +13,7 @@ function AllTournaments(props) {
     axios.get("/api/tournaments").then((res) => {
       setCreatedTournaments(res.data);
     });
-  }, []);
+  }, [createdTournaments]);
 
   const handleBracketSize = (val) => {
     return bracketSize === val ? null : setBracketSize(val);
@@ -31,6 +31,12 @@ function AllTournaments(props) {
         props.history.push(`/tournament/${res.data}`);
       })
       .catch(() => alert("Tournament Name already taken."));
+  };
+
+  const deleteTournament = (id) => {
+    axios.delete(`/api/tournaments/${id}`).then((res) => {
+      setCreatedTournaments(res.data);
+    });
   };
 
   let tournamentList = createdTournaments.map((tournament, i) => {
@@ -66,7 +72,13 @@ function AllTournaments(props) {
         >
           <button type="submit">Join</button>
         </Link>
-        <button onClick={() => {}}>Delete</button>
+        <button
+          onClick={() => {
+            deleteTournament(tournament.tournament_id);
+          }}
+        >
+          Delete
+        </button>
       </div>
     );
   });
