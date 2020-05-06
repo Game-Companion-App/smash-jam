@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,YAAY;AAAA,2CAA2C;AACvD,AAAA,EAAE,CAAC;EACD,WAAW,EAAE,IAAI;CAClB",
+    "sources": [
+        "AllTournaments.scss"
+    ],
+    "names": [],
+    "file": "AllTournaments.css"
+}

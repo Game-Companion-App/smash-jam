@@ -9,6 +9,7 @@ const http = require('http')
 const authCtrl = require('./controllers/authController');
 const fighterCtrl = require('./controllers/fighterController');
 const skinsCtrl = require('./controllers/skinsController');
+const socketCtrl = require('./controllers/socketController')
 
 // .env
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
@@ -40,10 +41,22 @@ massive({
 
 //SOCKET.IO
 io.on('connection', socket => {
-  console.log('new connection')
+  // socket.on('create room', () => {})
+
+  socket.on('join', ({bracket_id, username}) => {
+    const {participant} = socketCtrl.addParticipant({ id: socket.id, bracket_id, username });
+
+    socket.join(participant.bracket_id);
+    socket.to(`${bracket_id}`).emit('store tId', {bracket_id})
+
+    io.to(participant.bracket_id).emit('tournamentData', {
+      bracket: participant.bracket_id,
+      participants: socketCtrl.getParticipantsInBracket(participant.bracket_id)
+    });
+  })
 
   socket.on('disconnect', () => {
-    console.log('user left')
+    console.log('participant left')
   })
 })
 
@@ -61,3 +74,7 @@ app.get('/api/dlc', fighterCtrl.getDLCFighters);
 
 // FIGHTER SKINS
 app.get('/api/skins/:id', skinsCtrl.getFighterSkin);
+
+// TOURNAMENT ENDPOINTS
+app.get('/api/tournaments', socketCtrl.getTournaments)
+app.post('/api/tournaments', socketCtrl.createTournament)

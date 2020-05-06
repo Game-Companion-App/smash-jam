@@ -11,8 +11,10 @@ function News() {
     setIndex(selectedIndex);
   };
 
-  let currentDate = new Date()
-  let apiKeyExpiration = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}`
+  let currentDate = new Date();
+  let apiKeyExpiration = `${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1
+  }`;
 
   useEffect(() => {
     axios
@@ -36,27 +38,31 @@ function News() {
       }
     }
     return (
-      <Carousel.Item>	
+      <Carousel.Item>
         <a href={e.url} target="_blank">
-        <div className="article-body">
-        <div className="article-block">
-          <h3 className="article-title">{e.title}</h3>
-          <img src={e.urlToImage} className='article-image' />
-          <p className="article-description">{e.description}</p>
+          <div className="article-body">
+            <div className="article-block">
+              <h3 className="article-title">{e.title}</h3>
+              <img src={e.urlToImage} className="article-image" />
+              <p className="article-description">{e.description}</p>
+            </div>
+            <p style={{ color: "white" }}>powered by NewsAPI.org</p>
           </div>
-            <p style={{color: 'white'}}>powered by NewsAPI.org</p>
-        </div>
-          </a>
-          
+        </a>
       </Carousel.Item>
     );
   });
 
   return (
-    <div style={{ display: "flex", justifyContent: "center"}}>
-      <Carousel activeIndex={index} onSelect={handleSelect} fade={true} indicators={false} className='carousel' >
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Carousel
+        activeIndex={index}
+        onSelect={handleSelect}
+        fade={true}
+        indicators={false}
+        className="carousel"
+      >
         {newFeed}
-    
       </Carousel>
     </div>
   );
