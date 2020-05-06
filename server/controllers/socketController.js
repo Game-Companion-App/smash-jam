@@ -9,7 +9,7 @@ module.exports = {
   //checks if tournament name already in use
     let allTournaments = await db.get_tournaments()
     let duplicateName = allTournaments.map(tournament => tournament.name === tournament_name)
-    if(duplicateName) return res.sendStatus(409)
+    if(duplicateName[0]) return res.sendStatus(409)
 
   //creates unique tournament key
     let tournament_key = Math.random().toString(36).substr(2, 7)
