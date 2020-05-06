@@ -11,7 +11,7 @@ export default (
     <Route exact path="/" component={Home} />
     <Route path="/fighters" component={AllFighters} />
     <Route path="/fighter/:fighter_id" component={Fighter} />
-    <Route path='/tournaments' component={Tournaments}/>
-    <Route path="/bracket/:bracket_id" component={Bracket} />
+    <Route path="/tournaments" component={Tournaments} />
+    <Route path="/bracket/:tournament_id" component={Bracket} />
   </Switch>
 );

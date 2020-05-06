@@ -607,8 +607,7 @@ function Bracket(props) {
           Generate Bracket
         </button>
       </div>
-
-      <Chat />
+      {/* <Chat /> */}
 
       {/* bracket container */}
       <div className="bracket-container">
@@ -619,6 +618,7 @@ function Bracket(props) {
         <div className="bracket-round-container"> {bracketRoundFive} </div>
         <div className="bracket-round-container"> {bracketRoundSix} </div>
         <div className="bracket-round-container"> {bracketRoundSeven} </div>
+
         <div className="players-container">
           <div className="players-round-container"> {playersRoundOne} </div>
           <div className="players-round-container"> {playersRoundTwo} </div>
