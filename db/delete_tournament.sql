@@ -1,2 +1,2 @@
 DELETE FROM tournaments
-WHERE tournament_key = $1;
+WHERE tournament_id = $1;
