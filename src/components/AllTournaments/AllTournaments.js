@@ -38,16 +38,25 @@ function AllTournaments(props) {
       <div key={i}>
         <div> Tournament Name: {tournament.tournament_name} </div>
         <div>
-          {" "}
-          Password:{" "}
+          Password:
           <input
             type="password"
             onChange={(ev) => setPassword(ev.target.value)}
-          />{" "}
+            onKeyUp={(ev) => {
+              if (ev.keyCode === 13) {
+                if (password !== tournament.tournament_password) {
+                  alert("Incorrect password");
+                  ev.preventDefault();
+                } else
+                  props.history.push(
+                    `/tournament/${tournament.tournament_key}`
+                  );
+              } else return;
+            }}
+          />
         </div>
         <Link
           onClick={(ev) => {
-            if (!password) ev.preventDefault();
             if (password !== tournament.tournament_password) {
               alert("Incorrect password");
               ev.preventDefault();
@@ -97,12 +106,23 @@ function AllTournaments(props) {
           />{" "}
         </div>
         <div>
-          {" "}
-          Password:{" "}
+          Password:
           <input
             type="password"
             onChange={(ev) => setPassword(ev.target.value)}
-          />{" "}
+            onKeyUp={(ev) => {
+              if (ev.keyCode === 13) {
+                if (!tournamentName || !password) {
+                  alert("Please complete all fields");
+                  ev.preventDefault();
+                }
+                setTournamentName("");
+                setPassword("");
+                setBracketSize(8);
+                createTournament();
+              }
+            }}
+          />
         </div>
         <div>
           Bracket Size:
