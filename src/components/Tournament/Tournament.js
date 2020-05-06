@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
+import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 // import Chat from "../Chat/Chat";
 import "./Tournament.scss";
@@ -11,8 +11,8 @@ function Tournament(props) {
 // bracket setup
   const [seed, setSeed] = useState(0)
   const [fighters, setFighters] = useState([]);
-  const [newPlayer, setNewPlayer] = useState('')
-  const [newFighter, setNewFighter] = useState('')
+  const [newPlayer, setNewPlayer] = useState("");
+  const [newFighter, setNewFighter] = useState("");
   const [bracketSetup, setBracketSetup] = useState({
     seedNum: 0,
     playersToAdd: [],
@@ -40,7 +40,6 @@ function Tournament(props) {
   //   setTournamentId(tournamentId);
   // }, [ENDPOINT]);
 
-
   useEffect(() => {
     axios
       .get("/api/standard")
@@ -64,45 +63,50 @@ function Tournament(props) {
   }, []);
 
   useEffect(() => {
-    setplayersR1(Array(+seed).fill(''))
+    setplayersR1(Array(+seed).fill(""));
     setplayersR2(Array(seed / 2).fill(""));
-    if(seed >= 4){
+    if (seed >= 4) {
       setplayersR3(Array(seed / 4).fill(""));
-    } else setplayersR3([])
-    if(seed >= 8){
-      setplayersR4(Array(seed / 8).fill(""))
-    } else setplayersR4([])
-    if(seed >= 16){
-      setplayersR5(Array(seed / 16).fill(""))
-    } else setplayersR5([])
-    if(seed >= 32){
-      setplayersR6(Array(seed / 32).fill(""))
-    } else setplayersR6([])
-    if(seed >= 64){
-      setplayersR7(Array(seed / 64).fill(""))
-    } else setplayersR7([])
+    } else setplayersR3([]);
+    if (seed >= 8) {
+      setplayersR4(Array(seed / 8).fill(""));
+    } else setplayersR4([]);
+    if (seed >= 16) {
+      setplayersR5(Array(seed / 16).fill(""));
+    } else setplayersR5([]);
+    if (seed >= 32) {
+      setplayersR6(Array(seed / 32).fill(""));
+    } else setplayersR6([]);
+    if (seed >= 64) {
+      setplayersR7(Array(seed / 64).fill(""));
+    } else setplayersR7([]);
   }, [seed]);
 
-  let fighterOptions = fighters.sort().map(fighter => {
-    return <option value={fighter[1]}> {fighter[1]} </option>
-  })
+  let fighterOptions = fighters.sort().map((fighter) => {
+    return <option value={fighter[1]}> {fighter[1]} </option>;
+  });
 
-  const handleSeedChange = val => {
-    return seed === val ? null : setSeed(val)
-  }
+  const handleSeedChange = (val) => {
+    return seed === val ? null : setSeed(val);
+  };
   const handleAddPlayers = () => {
     let addedPlayer = Object.assign(bracketSetup);
     addedPlayer.playersToAdd.push(newPlayer);
     setBracketSetup(addedPlayer);
   };
   const handleAddFighters = () => {
-    let addedFighter = Object.assign(bracketSetup)
-    addedFighter.fightersToAdd.push(newFighter)
-    setBracketSetup(addedFighter)
-  }
+    let addedFighter = Object.assign(bracketSetup);
+    addedFighter.fightersToAdd.push(newFighter);
+    setBracketSetup(addedFighter);
+  };
   const generateBracket = () => {
-    if(bracketSetup.playersToAdd.length < 4 || bracketSetup.fightersToAdd.length < 4){
-      alert('Please add more players. A bracket must have at least 4 participants to generate.')
+    if (
+      bracketSetup.playersToAdd.length < 4 ||
+      bracketSetup.fightersToAdd.length < 4
+    ) {
+      alert(
+        "Please add more players. A bracket must have at least 4 participants to generate."
+      );
     } else {
       setplayersR1(bracketSetup.playersToAdd)
       let intersection = []
@@ -115,8 +119,8 @@ function Tournament(props) {
       })
       setPlayerImgs(intersection)
     }
-  }
-  
+  };
+
   const toggleSetupDropdown = () => {
     setupDropdown === "setupClosed"
       ? setSetupDropdown("setupOpen")
@@ -124,7 +128,7 @@ function Tournament(props) {
   };
 
   const advancePlayer = (i, round) => {
-    if(seed % 4 !== 0) return 
+    if (seed % 4 !== 0) return;
     let advPlayerR2 = [...playersR2];
     let advPlayerR3 = [...playersR3];
     let advPlayerR4 = [...playersR4];
@@ -206,8 +210,7 @@ function Tournament(props) {
           </svg>
         </div>
       );
-    }
-    else if (i % 2 === 0) {
+    } else if (i % 2 === 0) {
       return (
         <div className="bracket-round-three">
           <svg height="100%" width="100%">
@@ -238,8 +241,7 @@ function Tournament(props) {
           </svg>
         </div>
       );
-    }
-    else if (i % 2 === 0) {
+    } else if (i % 2 === 0) {
       return (
         <div className="bracket-round-four">
           <svg height="100%" width="100%">
@@ -270,8 +272,7 @@ function Tournament(props) {
           </svg>
         </div>
       );
-    }
-    else if (i % 2 === 0) {
+    } else if (i % 2 === 0) {
       return (
         <div className="bracket-round-five">
           <svg height="100%" width="100%">
@@ -498,15 +499,36 @@ function Tournament(props) {
       </button>
       <div className={`setup-dropdown ${setupDropdown}`}>
         {/* seed # */}
-        <div className='add-player'>
-          <h3 style={{margin: '0'}}>Seed #</h3>
-          <select style={{height: '35px', width: '50px'}} onClick={ev => handleSeedChange(ev.target.value)}>
-            <option style={{fontSize: '18px'}} value={0}> - </option>
-            <option style={{fontSize: '18px'}} value={4}> 4 </option>
-            <option style={{fontSize: '18px'}} value={8}> 8 </option>
-            <option style={{fontSize: '18px'}} value={16}> 16 </option>
-            <option style={{fontSize: '18px'}} value={32}> 32 </option>
-            <option style={{fontSize: '18px'}} value={64}> 64 </option>
+        <div className="add-player">
+          <h3 style={{ margin: "0" }}>Seed #</h3>
+          <select
+            style={{ height: "35px", width: "50px" }}
+            onClick={(ev) => handleSeedChange(ev.target.value)}
+          >
+            <option style={{ fontSize: "18px" }} value={0}>
+              {" "}
+              -{" "}
+            </option>
+            <option style={{ fontSize: "18px" }} value={4}>
+              {" "}
+              4{" "}
+            </option>
+            <option style={{ fontSize: "18px" }} value={8}>
+              {" "}
+              8{" "}
+            </option>
+            <option style={{ fontSize: "18px" }} value={16}>
+              {" "}
+              16{" "}
+            </option>
+            <option style={{ fontSize: "18px" }} value={32}>
+              {" "}
+              32{" "}
+            </option>
+            <option style={{ fontSize: "18px" }} value={64}>
+              {" "}
+              64{" "}
+            </option>
           </select>
         </div>
 
@@ -595,14 +617,10 @@ function Tournament(props) {
         </div>
 
         {/* generate new bracket */}
-        <button
-          className='generate-button'
-          onClick={() => generateBracket()}>
+        <button className="generate-button" onClick={() => generateBracket()}>
           Generate Bracket
         </button>
-
       </div>
-
       {/* <Chat /> */}
 
       {/* bracket container */}
@@ -614,6 +632,7 @@ function Tournament(props) {
         <div className="bracket-round-container"> {bracketRoundFive} </div>
         <div className="bracket-round-container"> {bracketRoundSix} </div>
         <div className="bracket-round-container"> {bracketRoundSeven} </div>
+
         <div className="players-container">
           <div className="players-round-container"> {playersRoundOne} </div>
           <div className="players-round-container"> {playersRoundTwo} </div>

@@ -3,5 +3,5 @@ CREATE TABLE tournaments (
   tournament_name VARCHAR(250),
   tournament_password VARCHAR(250),
   tournament_key VARCHAR(250),
-  tournament_size INT
+  tournament_size INTEGER
 );
