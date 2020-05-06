@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import { Link, withRouter } from "react-router-dom";
-import Chat from "../Chat/Chat";
-import "./Bracket.scss";
+// import Chat from "../Chat/Chat";
+import "./Tournament.scss";
+// import io from 'socket.io-client'
+// let socket
 
-function Bracket(props) {
-  // all fighters to choose from
+
+function Tournament(props) {
+// bracket setup
   const [seed, setSeed] = useState(0)
   const [fighters, setFighters] = useState([]);
   const [newPlayer, setNewPlayer] = useState('')
@@ -16,8 +19,8 @@ function Bracket(props) {
     fightersToAdd: []
   })
   const [setupDropdown, setSetupDropdown] = useState('setupClosed')
-
   const [playerImgs, setPlayerImgs] = useState([]);
+// bracket advancements
   const [playersR1, setplayersR1] = useState([]);
   const [playersR2, setplayersR2] = useState([]);
   const [playersR3, setplayersR3] = useState([]);
@@ -25,6 +28,17 @@ function Bracket(props) {
   const [playersR5, setplayersR5] = useState([]);
   const [playersR6, setplayersR6] = useState([]);
   const [playersR7, setplayersR7] = useState([]);
+// socket variables
+  // const ENDPOINT = 'localhost:3000'
+  // const [tournamentId, setTournamentId] = useState('')
+
+  // useEffect(() => {
+  //   const {tournamentId} = props.match.params
+
+  //   socket = io(ENDPOINT);
+
+  //   setTournamentId(tournamentId);
+  // }, [ENDPOINT]);
 
 
   useEffect(() => {
@@ -93,10 +107,10 @@ function Bracket(props) {
       setplayersR1(bracketSetup.playersToAdd)
       let intersection = []
       bracketSetup.fightersToAdd.filter(fighterA => {
-        fighters.filter((fighterB, i) => {
+        return fighters.filter((fighterB, i) => {
           if(fighterB[1] === fighterA){
-            intersection.push(fighterB[0])
-          }
+            return intersection.push(fighterB[0])
+          } else return null
         })
       })
       setPlayerImgs(intersection)
@@ -158,7 +172,7 @@ function Bracket(props) {
           </svg>
         </div>
       );
-    }
+    } else return null
   });
   let bracketRoundTwo = playersR2.map((el, i) => {
     if (i % 2 === 0) {
@@ -175,7 +189,7 @@ function Bracket(props) {
           </svg>
         </div>
       );
-    }
+    } else return null
   });
   let bracketRoundThree = playersR3.map((el, i) => {
     if (seed < 8) {
@@ -207,7 +221,7 @@ function Bracket(props) {
           </svg>
         </div>
       );
-    }
+    } else return null
   });
   let bracketRoundFour = playersR4.map((el, i) => {
     if (seed < 16) {
@@ -239,7 +253,7 @@ function Bracket(props) {
           </svg>
         </div>
       );
-    }
+    } else return null
   });
   let bracketRoundFive = playersR5.map((el, i) => {
     if (seed < 32) {
@@ -271,7 +285,7 @@ function Bracket(props) {
           </svg>
         </div>
       );
-    }
+    } else return null
   });
   let bracketRoundSix = playersR6.map((el, i) => {
     if (seed < 64) {
@@ -303,7 +317,7 @@ function Bracket(props) {
           </svg>
         </div>
       );
-    }
+    } else return null
   });
   let bracketRoundSeven = playersR7.map((el, i) => {
     if (i % 64 === 0) {
@@ -320,7 +334,7 @@ function Bracket(props) {
           </svg>
         </div>
       );
-    }
+    } else return null
   });
   // ALL PLAYERS
   let playersRoundOne = playersR1.map((name, i) => {
@@ -357,7 +371,7 @@ function Bracket(props) {
           <p>{player[0]}</p>
         </div>
       );
-    }
+    } else return null
   });
   let playersRoundThree = playersR3.map((player, i) => {
     let round = 3;
@@ -376,7 +390,7 @@ function Bracket(props) {
           <p>{player[0]}</p>
         </div>
       );
-    }
+    } else return null
   });
   let playersRoundFour = playersR4.map((player, i) => {
     let round = 4;
@@ -395,7 +409,7 @@ function Bracket(props) {
           <p>{player[0]}</p>
         </div>
       );
-    }
+    } else return null
   });
   let playersRoundFive = playersR5.map((player, i) => {
     let round = 5;
@@ -414,7 +428,7 @@ function Bracket(props) {
           <p>{player[0]}</p>
         </div>
       );
-    }
+    } else return null
   });
   let playersRoundSix = playersR6.map((player, i) => {
     let round = 6;
@@ -433,7 +447,7 @@ function Bracket(props) {
           <p>{player[0]}</p>
         </div>
       );
-    }
+    } else return null
   });
   let playersRoundSeven = playersR7.map((player, i) => {
     let round = 7;
@@ -452,7 +466,7 @@ function Bracket(props) {
           <p>{player[0]}</p>
         </div>
       );
-    }
+    } else return null
   });
 
   return (
@@ -589,7 +603,7 @@ function Bracket(props) {
 
       </div>
 
-      <Chat />
+      {/* <Chat /> */}
 
       {/* bracket container */}
       <div className="bracket-container">
@@ -614,4 +628,4 @@ function Bracket(props) {
   );
 }
 
-export default withRouter(Bracket);
+export default withRouter(Tournament);
