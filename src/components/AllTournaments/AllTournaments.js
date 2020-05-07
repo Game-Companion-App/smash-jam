@@ -85,45 +85,83 @@ function AllTournaments(props) {
 
   return (
     <>
-      <Link to="/">
-        <button className="home-button">
-          <img
-            src="https://smash-app.s3-us-west-1.amazonaws.com/home-run.png"
-            alt=""
-            className="home-icon"
-          />
-          Home
-        </button>
-      </Link>
+      <div className="header-container">
+        <Link to="/">
+          <button className="home-button">
+            <img
+              src="https://smash-app.s3-us-west-1.amazonaws.com/home-run.png"
+              alt=""
+              className="home-icon"
+            />
+            Home
+          </button>
+        </Link>
 
-      <Link to="/fighters">
-        <button className="fighters-button">
-          <img
-            src="https://smash-app.s3-us-west-1.amazonaws.com/fight.png"
-            alt=""
-            className="arrow-icon"
-          />
-          All Fighters
-        </button>
-      </Link>
+        <Link to="/fighters">
+          <button className="fighters-button">
+            <img
+              src="https://smash-app.s3-us-west-1.amazonaws.com/fight.png"
+              alt=""
+              className="arrow-icon"
+            />
+            All Fighters
+          </button>
+        </Link>
+      </div>
 
-      <div>
-        <h4>Host Tournament</h4>
-        <div>
-          {" "}
-          Tournament Name:{" "}
-          <input
-            type="text"
-            onChange={(ev) => setTournamentName(ev.target.value)}
-          />{" "}
+      <div className="tournaments-container">
+        <div className="smash-container">
+          <h2>Smash JAM Tournaments</h2>
         </div>
-        <div>
-          Password:
-          <input
-            type="password"
-            onChange={(ev) => setPassword(ev.target.value)}
-            onKeyUp={(ev) => {
-              if (ev.keyCode === 13) {
+
+        {/* CREATE TOURNAMENT */}
+        <div className="create-section">
+          <h3 className="host-title">Host Your Own:</h3>
+          <div className="create-tournament">
+            <div>
+              <h5>Tournament Name:</h5>
+              <input
+                type="text"
+                onChange={(ev) => setTournamentName(ev.target.value)}
+              />{" "}
+            </div>
+            <div>
+              <h5>Password:</h5>
+              <input
+                type="password"
+                onChange={(ev) => setPassword(ev.target.value)}
+                onKeyUp={(ev) => {
+                  if (ev.keyCode === 13) {
+                    if (!tournamentName || !password) {
+                      alert("Please complete all fields");
+                      ev.preventDefault();
+                    }
+                    setTournamentName("");
+                    setPassword("");
+                    setBracketSize(8);
+                    createTournament();
+                  }
+                }}
+              />
+            </div>
+            <div>
+              <h5>Bracket Size:</h5>
+              <select
+                type="text"
+                className="selector"
+                onClick={(ev) => handleBracketSize(ev.target.value)}
+                defaultValue={4}
+              >
+                <option value={4}> 4 </option>
+                <option value={8}> 8 </option>
+                <option value={16}> 16 </option>
+                <option value={32}> 32 </option>
+                <option value={64}> 64 </option>
+              </select>
+            </div>
+
+            <Link
+              onClick={(ev) => {
                 if (!tournamentName || !password) {
                   alert("Please complete all fields");
                   ev.preventDefault();
@@ -132,44 +170,16 @@ function AllTournaments(props) {
                 setPassword("");
                 setBracketSize(8);
                 createTournament();
-              }
-            }}
-          />
+              }}
+              to="/tournaments"
+            >
+              <button type="submit" className="create-button">
+                Create
+              </button>
+            </Link>
+          </div>
         </div>
-        <div>
-          Bracket Size:
-          <select
-            type="text"
-            onClick={(ev) => handleBracketSize(ev.target.value)}
-            defaultValue={4}
-          >
-            <option value={4}> 4 </option>
-            <option value={8}> 8 </option>
-            <option value={16}> 16 </option>
-            <option value={32}> 32 </option>
-            <option value={64}> 64 </option>
-          </select>
-        </div>
-
-        <Link
-          onClick={(ev) => {
-            if (!tournamentName || !password) {
-              alert("Please complete all fields");
-              ev.preventDefault();
-            }
-            setTournamentName("");
-            setPassword("");
-            setBracketSize(8);
-            createTournament();
-          }}
-          to="/tournaments"
-        >
-          <button type="submit">Create</button>
-        </Link>
       </div>
-
-      <div className="pro-tournaments">Pro Tournaments</div>
-
       <div>{tournamentList}</div>
     </>
   );

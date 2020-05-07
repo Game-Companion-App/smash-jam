@@ -11,15 +11,17 @@ function News() {
     setIndex(selectedIndex);
   };
 
-  let currentDate = new Date();
-  let apiKeyExpiration = `${currentDate.getFullYear()}-${
-    currentDate.getMonth() + 1
-  }`;
+  // let currentDate = new Date();
+  // let apiKeyExpiration = `${currentDate.getFullYear()} -
+  // ${currentDate.getMonth() + 1}`;
+
+  let today = new Date();
+  let priorDate = new Date().setDate(today.getDate() - 30);
 
   useEffect(() => {
     axios
       .get(
-        `https://newsapi.org/v2/everything?qInTitle=super AND smash AND bros AND ultimate&from=${apiKeyExpiration}&sortBy=popularity&language=en&apiKey=74ff612ea2fa4f02834b45e190acdb1a`
+        `https://newsapi.org/v2/everything?qInTitle=super AND smash AND bros AND ultimate&from=${priorDate}&sortBy=popularity&language=en&apiKey=74ff612ea2fa4f02834b45e190acdb1a`
       )
       .then((res) => setFeed(res.data.articles))
       .catch((err) => console.log(err));
