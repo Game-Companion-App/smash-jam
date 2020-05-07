@@ -23,7 +23,7 @@ function News() {
       )
       .then((res) => setFeed(res.data.articles))
       .catch((err) => console.log(err));
-  }, []);
+  }, [apiKeyExpiration]);
 
   let newFeed = feed.map((e, i) => {
     for (let i = 0; i < feed.length; i++) {
