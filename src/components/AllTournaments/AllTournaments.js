@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import "./AllTournaments.scss";
@@ -8,7 +8,7 @@ function AllTournaments(props) {
   const [tournamentName, setTournamentName] = useState("");
   const [password, setPassword] = useState("");
   const [createdTournaments, setCreatedTournaments] = useState([]);
-  const [bracketSize, setBracketSize] = useState(4);
+  const [bracketSize, setBracketSize] = useState();
   const [fighters, setFighters] = useState([]);
   const [newFighter, setNewFighter] = useState("");
 
@@ -53,7 +53,7 @@ function AllTournaments(props) {
         tournament_size: bracketSize,
       })
       .then((res) => {
-        let key = res.data
+        let key = res.data;
         props.history.push(`/tournament/${key}`);
       })
       .catch(() => alert("Tournament Name already taken."));
@@ -98,10 +98,8 @@ function AllTournaments(props) {
                   alert("Incorrect password");
                   ev.preventDefault();
                 } else {
-                  let key = tournament.tournament_key
-                  props.history.push(
-                    `/tournament/${key}`
-                  );
+                  let key = tournament.tournament_key;
+                  props.history.push(`/tournament/${key}`);
                 }
               } else return;
             }}
@@ -187,7 +185,7 @@ function AllTournaments(props) {
                     }
                     setTournamentName("");
                     setPassword("");
-                    setBracketSize(8);
+                    setBracketSize();
                     createTournament();
                   }
                 }}
@@ -196,16 +194,16 @@ function AllTournaments(props) {
             <div>
               <h4>Bracket Size:</h4>
               <select
+                style={{ height: "30px", width: "50px" }}
                 type="text"
                 className="selector"
                 onClick={(ev) => handleBracketSize(ev.target.value)}
-                defaultValue={4}
               >
-                <option value={4}> 4 </option>
-                <option value={8}> 8 </option>
-                <option value={16}> 16 </option>
-                <option value={32}> 32 </option>
-                <option value={64}> 64 </option>
+                <option value={4}>4</option>
+                <option value={8}>8</option>
+                <option value={16}>16</option>
+                <option value={32}>32</option>
+                <option value={64}>64</option>
               </select>
             </div>
             <Link
@@ -252,9 +250,9 @@ function AllTournaments(props) {
   );
 }
 
-const mapStateToProps = reduxState => {
-  const {user_name, user_email} = reduxState
-  return {user_name, user_email}
-}
+const mapStateToProps = (reduxState) => {
+  const { user_name, user_email } = reduxState;
+  return { user_name, user_email };
+};
 
 export default withRouter(connect(mapStateToProps)(AllTournaments));
