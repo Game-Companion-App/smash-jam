@@ -1,4 +1,10 @@
 /* No CSS */ /*# sourceMappingURL=Tournaments.css.map */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Bangers", cursive;
+}
 
 .header-container {
   width: 100vw;
@@ -67,22 +73,21 @@
   margin-top: 20px;
   background-color: #333;
   color: white;
-  width: 37vw;
+  width: 45vw;
   height: 150px;
   padding-top: 10px;
-  padding-right: 80px;
+  // padding-right: 80px;
 }
 
 .host-title {
   max-width: 100vw;
-  padding-left: 80px;
 }
 
 .create-tournament {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 30vw;
+  width: 45vw;
 }
 
 .create-button {
@@ -90,10 +95,107 @@
   width: 85px;
   background-color: red;
   color: white;
-  font-size: 1.3rem;
-  position: fixed;
+  font-size: 1.4rem;
+  margin-left: 10px;
 }
 
 .selector {
   margin-left: 30px;
+}
+
+.tournament-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 85vw;
+  color: white;
+  background-color: #333;
+  padding: 20px 0;
+}
+
+// TOURNAMENT LIST
+.top-border {
+  width: 85vw;
+  height: 50px;
+  margin-top: 20px;
+  background: repeating-linear-gradient(
+    -55deg,
+    #222,
+    #222 5px,
+    #333 5px,
+    #333 10px
+  );
+}
+
+.bottom-border {
+  width: 85vw;
+  height: 50px;
+  margin-bottom: 20px;
+  background: repeating-linear-gradient(
+    -55deg,
+    #222,
+    #222 5px,
+    #333 5px,
+    #333 10px
+  );
+}
+
+.tournament-list-item {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 80vw;
+  flex-wrap: wrap;
+}
+
+hr {
+  border: white solid 1px;
+  width: 80vw;
+}
+
+.t-name {
+  width: 18%;
+}
+
+.p-word {
+  max-width: 10%;
+}
+
+.f-name {
+  // width: 50px;
+  max-width: 20%;
+  // min-width: 10px;
+}
+
+.b-size {
+  max-width: 5vw;
+}
+
+.join-button {
+  height: 50px;
+  width: 85px;
+  background-color: red;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.table-titles {
+  display: flex;
+  width: 80vw;
+}
+
+.title-name {
+  margin-left: 120px;
+}
+
+.title-size {
+  margin-left: 230px;
+}
+
+.title-fighter {
+  margin-left: 130px;
+}
+
+.title-password {
+  margin-left: 230px;
 }

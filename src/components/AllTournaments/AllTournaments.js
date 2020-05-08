@@ -9,12 +9,36 @@ function AllTournaments(props) {
   const [password, setPassword] = useState("");
   const [createdTournaments, setCreatedTournaments] = useState([]);
   const [bracketSize, setBracketSize] = useState(4);
+  const [fighters, setFighters] = useState([]);
+  const [newFighter, setNewFighter] = useState("");
 
   useEffect(() => {
     axios.get("/api/tournaments").then((res) => {
       setCreatedTournaments(res.data);
     });
   }, [createdTournaments]);
+
+  useEffect(() => {
+    axios
+      .get("/api/standard")
+      .then((res1) => {
+        let standardFighters = res1.data.map((fighter) => [
+          fighter.skin_1,
+          fighter.fighter_name,
+        ]);
+        axios
+          .get("/api/dlc")
+          .then((res2) => {
+            let dlcFighters = res2.data.map((fighter) => [
+              fighter.skin_1,
+              fighter.fighter_name,
+            ]);
+            setFighters([...standardFighters, ...dlcFighters]);
+          })
+          .catch((err2) => console.log(err2));
+      })
+      .catch((err1) => console.log(err1));
+  }, []);
 
   const handleBracketSize = (val) => {
     return bracketSize === val ? null : setBracketSize(val);
@@ -41,12 +65,30 @@ function AllTournaments(props) {
     });
   };
 
+  let fighterOptions = fighters.sort().map((fighter) => {
+    return <option value={fighter[1]}> {fighter[1]} </option>;
+  });
+
   let tournamentList = createdTournaments.map((tournament, i) => {
     return (
-      <div key={i}>
-        <div> Tournament Name: {tournament.tournament_name} </div>
-        <div>
-          Password:
+      <div className="tournament-list-item" key={i}>
+        <div className="t-name">
+          <h5>{tournament.tournament_name}</h5>
+        </div>
+        <div className="b-size">
+          <h5>{tournament.tournament_size}</h5>
+        </div>
+        <div className="f-name">
+          <select
+            style={{ height: "30px", width: "180px" }}
+            onChange={(ev) => setNewFighter(ev.target.value)}
+            value={newFighter}
+          >
+            <option value={0}> - Select A Fighter </option>
+            {fighterOptions}
+          </select>
+        </div>
+        <div className="p-word">
           <input
             type="password"
             onChange={(ev) => setPassword(ev.target.value)}
@@ -74,8 +116,11 @@ function AllTournaments(props) {
           }}
           to={`/tournament/${tournament.tournament_key}`}
         >
-          <button type="submit">Join</button>
+          <button className="join-button" type="submit">
+            Join
+          </button>
         </Link>
+        <hr />
         <button
           onClick={() => {
             deleteTournament(tournament.tournament_id);
@@ -120,17 +165,17 @@ function AllTournaments(props) {
 
         {/* CREATE TOURNAMENT */}
         <div className="create-section">
-          <h3 className="host-title">Host Your Own:</h3>
+          <h3 className="host-title">Host Your Own</h3>
           <div className="create-tournament">
             <div>
-              <h5>Tournament Name:</h5>
+              <h4>Tournament Name:</h4>
               <input
                 type="text"
                 onChange={(ev) => setTournamentName(ev.target.value)}
               />{" "}
             </div>
             <div>
-              <h5>Password:</h5>
+              <h4>Password:</h4>
               <input
                 type="password"
                 onChange={(ev) => setPassword(ev.target.value)}
@@ -149,7 +194,7 @@ function AllTournaments(props) {
               />
             </div>
             <div>
-              <h5>Bracket Size:</h5>
+              <h4>Bracket Size:</h4>
               <select
                 type="text"
                 className="selector"
@@ -163,7 +208,6 @@ function AllTournaments(props) {
                 <option value={64}> 64 </option>
               </select>
             </div>
-
             <Link
               onClick={(ev) => {
                 if (!tournamentName || !password) {
@@ -183,8 +227,27 @@ function AllTournaments(props) {
             </Link>
           </div>
         </div>
+        <div className="top-border"></div>
+        <div className="tournament-list-container">
+          <div className="table-titles">
+            <div className="title-name">
+              <h4>Tournament Name:</h4>
+            </div>
+            <div className="title-size">
+              <h4>Bracket Size:</h4>
+            </div>
+            <div className="title-fighter">
+              <h4>Fighter:</h4>
+            </div>
+            <div className="title-password">
+              <h4>Password:</h4>
+            </div>
+          </div>
+          <hr />
+          {tournamentList}
+        </div>
+        <div className="bottom-border"></div>
       </div>
-      <div>{tournamentList}</div>
     </>
   );
 }
