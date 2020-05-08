@@ -3,8 +3,11 @@ import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 // import Chat from "../Chat/Chat";
 import "./Tournament.scss";
-// import io from 'socket.io-client'
-// let socket
+import io from 'socket.io-client'
+let socket;
+
+let user_id = 1
+let user_name = 'Billy'
 
 
 function Tournament(props) {
@@ -29,16 +32,25 @@ function Tournament(props) {
   const [playersR6, setplayersR6] = useState([]);
   const [playersR7, setplayersR7] = useState([]);
 // socket variables
-  // const ENDPOINT = 'localhost:3000'
-  // const [tournamentId, setTournamentId] = useState('')
+  const ENDPOINT = 'localhost:3000'
+  const [tournamentId, setTournamentId] = useState('')
 
-  // useEffect(() => {
-  //   const {tournamentId} = props.match.params
+  useEffect(() => {
+    
+    const {key} = props.match.params
 
-  //   socket = io(ENDPOINT);
+    socket = io(ENDPOINT);
 
-  //   setTournamentId(tournamentId);
-  // }, [ENDPOINT]);
+    setTournamentId(key);
+
+    socket.emit('join', {user_id, user_name, key})
+
+  }, [ENDPOINT, props.match.params]);
+
+
+
+
+  
 
   useEffect(() => {
     axios

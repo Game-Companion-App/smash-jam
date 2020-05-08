@@ -30,6 +30,8 @@
     "react-swipeable": "^5.5.1",
     "react-use-gesture": "^7.0.12",
     "react-use-gestures": "^0.1.2",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "redux-promise-middleware": "^6.1.2",
     "sass": "^1.26.3",
     "socket.io": "^2.3.0",

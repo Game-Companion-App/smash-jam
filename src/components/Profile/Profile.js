@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios'
+import {connect} from 'react-redux'
+import {login} from '../../redux/userReducer'
 import profileButton from '../../assets/profile_button.png'
 import closeIcon from '../../assets/close_icon.png'
 import './Profile.scss'
@@ -8,7 +11,34 @@ function Profile(props) {
   const [sidebarMini, setSidebarMini] = useState('0px')
   const [authVisibility, setAuthVisibility] = useState('hidden')
   const [authBox, setAuthBox] = useState('auth-login')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [profileUsername, setProfileUserame] = useState('')
+  const [profileEmail, setProfileEmail] = useState('')
 
+  useEffect(() => {
+    axios.get('/auth/user').then(user => {
+      const {user_name, user_email} = user.data
+      props.login(user_name, user_email)
+    })
+    
+    setProfileUserame(props.user_name)
+    setProfileEmail(props.user_email)
+  }, [props])
+  
+  const register = () => {
+    axios.post('/auth/register', {user_name: username, user_email: email, user_password: password}).then(res => {
+      const {user_name, user_email} = res.data
+      props.login(user_name, user_email)
+    }).catch(() => alert('Email or username already exists'))
+  }
+  const login = () => {
+    axios.post('/auth/login', {user_email: email, user_password: password}).then(res => {
+      const {user_name, user_email} = res.data
+      props.login(user_name, user_email)
+    }).catch(() => alert('Incorrect email or password'))
+  }
 
   const toggleAuth = () => {
     authVisibility === 'hidden' ? setAuthVisibility('visible') : setAuthVisibility('hidden')
@@ -39,8 +69,8 @@ function Profile(props) {
         <div className='user-info'>
           <div alt='default profile' className='profile-pic'></div>
           <div>
-            <p>Username</p>
-            <p>email@email.com</p>
+            <p style={{fontSize: '20px'}}>{profileUsername || 'Please login'}</p>
+            <p>{profileEmail || ''}</p>
           </div>
           <img  src={closeIcon} alt='' 
                 className='close-sidebar'
@@ -68,16 +98,26 @@ function Profile(props) {
           <div className={`${authVisibility}`}>
             {authBox === 'auth-login' ?
                 <div className={`auth-box ${authVisibility}`}>
-                  <input placeholder='Username or Email'></input>
-                  <input placeholder='Password' type='password'></input>
-                  <button>Login</button>
+                  <input placeholder='Email' onChange={ev => setEmail(ev.target.value)} value={email} ></input>
+                  <input placeholder='Password' type='password' onChange={ev => setPassword(ev.target.value)} value={password} ></input>
+                  <button onClick={() => {
+                    login()
+                    setUsername('')
+                    setEmail('')
+                    setPassword('')
+                  }}> Login </button>
                 </div>
               :
                 <div className={`auth-box ${authVisibility}`}>
-                  <input placeholder='Username'></input>
-                  <input placeholder='Email'></input>
-                  <input placeholder='Password' type='password'></input>
-                  <button>Create Account</button>
+                  <input placeholder='Username' onChange={ev => setUsername(ev.target.value)} value={username} ></input>
+                  <input placeholder='Email' onChange={ev => setEmail(ev.target.value)} value={email} ></input>
+                  <input placeholder='Password' type='password' onChange={ev => setPassword(ev.target.value)} value={password} ></input>
+                  <button onClick={() => {
+                    register()
+                    setUsername('')
+                    setEmail('')
+                    setPassword('')
+                  }} > Create Account </button>
                 </div>
             }
           </div>
@@ -89,24 +129,14 @@ function Profile(props) {
           >My Tournaments</p>
         </div>
 
-        {/* main characters */}
-        <p className='section'>Main Character(s):</p>
-        <div className='mains'>
-          <img alt=''/>
-          <p>Mario</p>
-        </div>
-        <div className='mains'>
-          <img alt=''/>
-          <p>Yoshi</p>
-        </div>
-
-        {/* user stats */}
-        <p className='section'>Stats:</p>
-
-
       </div>
     </>
   );
 }
 
-export default Profile;
+const mapStateToProps = reduxState => {
+  const {user_name, user_email} = reduxState
+  return {user_name, user_email}
+}
+
+export default connect(mapStateToProps, {login})(Profile);
