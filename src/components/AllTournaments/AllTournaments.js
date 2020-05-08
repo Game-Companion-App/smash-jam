@@ -117,15 +117,14 @@ function AllTournaments(props) {
             Join
           </button>
         </Link>
+        <hr />
         <button
-          className="delete-button"
           onClick={() => {
             deleteTournament(tournament.tournament_id);
           }}
         >
           Delete
         </button>
-        <hr />
       </div>
     );
   });
