@@ -76,7 +76,6 @@
   width: 45vw;
   height: 150px;
   padding-top: 10px;
-  // padding-right: 80px;
 }
 
 .host-title {
@@ -86,6 +85,7 @@
 .create-tournament {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-evenly;
   width: 45vw;
 }
