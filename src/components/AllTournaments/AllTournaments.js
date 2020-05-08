@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import "./AllTournaments.scss";
@@ -9,12 +9,36 @@ function AllTournaments(props) {
   const [password, setPassword] = useState("");
   const [createdTournaments, setCreatedTournaments] = useState([]);
   const [bracketSize, setBracketSize] = useState();
+  const [fighters, setFighters] = useState([]);
+  const [newFighter, setNewFighter] = useState("");
 
   useEffect(() => {
     axios.get("/api/tournaments").then((res) => {
       setCreatedTournaments(res.data);
     });
   }, [createdTournaments]);
+
+  useEffect(() => {
+    axios
+      .get("/api/standard")
+      .then((res1) => {
+        let standardFighters = res1.data.map((fighter) => [
+          fighter.skin_1,
+          fighter.fighter_name,
+        ]);
+        axios
+          .get("/api/dlc")
+          .then((res2) => {
+            let dlcFighters = res2.data.map((fighter) => [
+              fighter.skin_1,
+              fighter.fighter_name,
+            ]);
+            setFighters([...standardFighters, ...dlcFighters]);
+          })
+          .catch((err2) => console.log(err2));
+      })
+      .catch((err1) => console.log(err1));
+  }, []);
 
   const handleBracketSize = (val) => {
     return bracketSize === val ? null : setBracketSize(val);
@@ -30,7 +54,7 @@ function AllTournaments(props) {
         tournament_size: bracketSize,
       })
       .then((res) => {
-        let key = res.data
+        let key = res.data;
         props.history.push(`/tournament/${key}`);
       })
       .catch(() => alert("Tournament Name already taken."));
@@ -42,12 +66,30 @@ function AllTournaments(props) {
     });
   };
 
+  let fighterOptions = fighters.sort().map((fighter) => {
+    return <option value={fighter[1]}> {fighter[1]} </option>;
+  });
+
   let tournamentList = createdTournaments.map((tournament, i) => {
     return (
-      <div key={i}>
-        <div> Tournament Name: {tournament.tournament_name} </div>
-        <div>
-          Password:
+      <div className="tournament-list-item" key={i}>
+        <div className="t-name">
+          <h5>{tournament.tournament_name}</h5>
+        </div>
+        <div className="b-size">
+          <h5>{tournament.tournament_size}</h5>
+        </div>
+        <div className="f-name">
+          <select
+            style={{ height: "30px", width: "180px" }}
+            onChange={(ev) => setNewFighter(ev.target.value)}
+            value={newFighter}
+          >
+            <option value={0}> - Select A Fighter </option>
+            {fighterOptions}
+          </select>
+        </div>
+        <div className="p-word">
           <input
             type="password"
             onChange={(ev) => setPassword(ev.target.value)}
@@ -57,10 +99,8 @@ function AllTournaments(props) {
                   alert("Incorrect password");
                   ev.preventDefault();
                 } else {
-                  let key = tournament.tournament_key
-                  props.history.push(
-                    `/tournament/${key}`
-                  );
+                  let key = tournament.tournament_key;
+                  props.history.push(`/tournament/${key}`);
                 }
               } else return;
             }}
@@ -75,8 +115,11 @@ function AllTournaments(props) {
           }}
           to={`/tournament/${tournament.tournament_key}`}
         >
-          <button type="submit">Join</button>
+          <button className="join-button" type="submit">
+            Join
+          </button>
         </Link>
+        <hr />
         <button
           onClick={() => {
             deleteTournament(tournament.tournament_id);
@@ -121,17 +164,17 @@ function AllTournaments(props) {
 
         {/* CREATE TOURNAMENT */}
         <div className="create-section">
-          <h3 className="host-title">Host Your Own:</h3>
+          <h3 className="host-title">Host Your Own</h3>
           <div className="create-tournament">
             <div>
-              <h5>Tournament Name:</h5>
+              <h4>Tournament Name:</h4>
               <input
                 type="text"
                 onChange={(ev) => setTournamentName(ev.target.value)}
               />{" "}
             </div>
             <div>
-              <h5>Password:</h5>
+              <h4>Password:</h4>
               <input
                 type="password"
                 onChange={(ev) => setPassword(ev.target.value)}
@@ -150,20 +193,20 @@ function AllTournaments(props) {
               />
             </div>
             <div>
-              <h5>Bracket Size:</h5>
+              <h4>Bracket Size:</h4>
               <select
+                style={{ height: "30px", width: "50px" }}
                 type="text"
                 className="selector"
                 onClick={(ev) => handleBracketSize(ev.target.value)}
               >
-                <option value={4}> 4 </option>
-                <option value={8}> 8 </option>
-                <option value={16}> 16 </option>
-                <option value={32}> 32 </option>
-                <option value={64}> 64 </option>
+                <option value={4}>4</option>
+                <option value={8}>8</option>
+                <option value={16}>16</option>
+                <option value={32}>32</option>
+                <option value={64}>64</option>
               </select>
             </div>
-
             <Link
               onClick={(ev) => {
                 if (!tournamentName || !password) {
@@ -172,7 +215,7 @@ function AllTournaments(props) {
                 }
                 setTournamentName("");
                 setPassword("");
-                setBracketSize(8);
+                setBracketSize();
                 createTournament();
               }}
               to="/tournaments"
@@ -183,15 +226,34 @@ function AllTournaments(props) {
             </Link>
           </div>
         </div>
+        <div className="top-border"></div>
+        <div className="tournament-list-container">
+          <div className="table-titles">
+            <div className="title-name">
+              <h4>Tournament Name:</h4>
+            </div>
+            <div className="title-size">
+              <h4>Bracket Size:</h4>
+            </div>
+            <div className="title-fighter">
+              <h4>Fighter:</h4>
+            </div>
+            <div className="title-password">
+              <h4>Password:</h4>
+            </div>
+          </div>
+          <hr />
+          {tournamentList}
+        </div>
+        <div className="bottom-border"></div>
       </div>
-      <div>{tournamentList}</div>
     </>
   );
 }
 
-const mapStateToProps = reduxState => {
-  const {user_name, user_email} = reduxState
-  return {user_name, user_email}
-}
+const mapStateToProps = (reduxState) => {
+  const { user_name, user_email } = reduxState;
+  return { user_name, user_email };
+};
 
 export default withRouter(connect(mapStateToProps)(AllTournaments));

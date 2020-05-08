@@ -11,6 +11,10 @@ function News() {
     setIndex(selectedIndex);
   };
 
+  // let currentDate = new Date();
+  // let apiKeyExpiration = `${currentDate.getFullYear()} -
+  // ${currentDate.getMonth() + 1}`;
+
   let today = new Date();
   let priorDate = new Date().setDate(today.getDate() - 30);
 
