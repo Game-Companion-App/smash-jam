@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {connect} from 'react-redux'
 import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import "./AllTournaments.scss";
@@ -46,13 +47,14 @@ function AllTournaments(props) {
   const createTournament = () => {
     axios
       .post("/api/tournaments", {
+        host_username: props.user_name,
         tournament_name: tournamentName,
         tournament_password: password,
         tournament_size: bracketSize,
       })
       .then((res) => {
-        console.log(res);
-        props.history.push(`/tournament/${res.data}`);
+        let key = res.data
+        props.history.push(`/tournament/${key}`);
       })
       .catch(() => alert("Tournament Name already taken."));
   };
@@ -95,10 +97,12 @@ function AllTournaments(props) {
                 if (password !== tournament.tournament_password) {
                   alert("Incorrect password");
                   ev.preventDefault();
-                } else
+                } else {
+                  let key = tournament.tournament_key
                   props.history.push(
-                    `/tournament/${tournament.tournament_key}`
+                    `/tournament/${key}`
                   );
+                }
               } else return;
             }}
           />
@@ -248,4 +252,9 @@ function AllTournaments(props) {
   );
 }
 
-export default withRouter(AllTournaments);
+const mapStateToProps = reduxState => {
+  const {user_name, user_email} = reduxState
+  return {user_name, user_email}
+}
+
+export default withRouter(connect(mapStateToProps)(AllTournaments));

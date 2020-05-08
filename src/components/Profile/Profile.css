@@ -117,9 +117,7 @@ p {
 
 .visible {
   opacity: 1;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
+  height: 180px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }

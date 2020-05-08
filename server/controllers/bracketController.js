@@ -1,8 +1,7 @@
-const participants = [];
-
 module.exports = {
+  
   createTournament: async (req, res) => {
-    const { tournament_name, tournament_password, tournament_size } = req.body;
+    const { host_username, tournament_name, tournament_password, tournament_size } = req.body;
     const db = req.app.get("db");
 
     //checks if tournament name already in use
@@ -12,11 +11,10 @@ module.exports = {
     //creates unique tournament key
     let tournament_key = Math.random().toString(36).substr(2, 7);
     let foundKey = await db.check_tournament_key([tournament_key]);
-    if (foundKey) {
-      tournament_key = Math.random().toString(36).substr(2, 7);
-    }
+    if (foundKey) tournament_key = Math.random().toString(36).substr(2, 7);
 
     await db.create_tournament([
+      host_username,
       tournament_name,
       tournament_password,
       tournament_key,
@@ -52,12 +50,4 @@ module.exports = {
     }
   },
 
-  addParticipant: ({ participant_id, bracket_id, username }) => {
-    const participant = { participant_id, bracket_id, username };
-    participants.push(participant);
-    return { participant };
-  },
-
-  getParticipantsInBracket: (bracket_id) =>
-    participants.filter((participant) => participant.bracket_id === bracket_id),
 };
