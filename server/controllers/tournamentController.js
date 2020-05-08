@@ -1,4 +1,16 @@
 module.exports = {
+
+  getTournaments: async (req, res) => {
+    const db = req.app.get("db");
+
+    let allTournaments = await db.get_tournaments();
+
+    if (allTournaments[0]) {
+      return res.status(200).send(allTournaments);
+    } else {
+      return res.sendStatus(500);
+    }
+  },
   
   createTournament: async (req, res) => {
     const { host_username, tournament_name, tournament_password, tournament_size } = req.body;
@@ -38,16 +50,18 @@ module.exports = {
     }
   },
 
-  getTournaments: async (req, res) => {
+
+
+
+
+
+  
+  updateBracket: async (req, res) => {
     const db = req.app.get("db");
 
-    let allTournaments = await db.get_tournaments();
+    let updatedBracket = await db.update_bracket([])
 
-    if (allTournaments[0]) {
-      return res.status(200).send(allTournaments);
-    } else {
-      return res.sendStatus(500);
-    }
-  },
+    return res.status(200).send(updatedBracket)
+  }
 
 };

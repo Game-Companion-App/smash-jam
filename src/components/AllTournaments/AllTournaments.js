@@ -82,7 +82,6 @@ function AllTournaments(props) {
           <select
             style={{ height: "30px", width: "180px" }}
             onChange={(ev) => setNewFighter(ev.target.value)}
-            value={newFighter}
           >
             <option value={0}> - Select A Fighter </option>
             {fighterOptions}
@@ -183,11 +182,12 @@ function AllTournaments(props) {
                     if (!tournamentName || !password || bracketSize === 0) {
                       alert("Please complete all fields");
                       ev.preventDefault();
+                    } else {
+                      createTournament();
+                      setTournamentName("");
+                      setPassword("");
+                      setBracketSize(0);
                     }
-                    setTournamentName("");
-                    setPassword("");
-                    setBracketSize(0);
-                    createTournament();
                   }
                 }}
               />
@@ -214,10 +214,10 @@ function AllTournaments(props) {
                   alert("Please complete all fields");
                   ev.preventDefault();
                 } else {
+                  createTournament();
                   setTournamentName("");
                   setPassword("");
                   setBracketSize(0);
-                  createTournament();
                 }
               }}
               to="/tournaments"
