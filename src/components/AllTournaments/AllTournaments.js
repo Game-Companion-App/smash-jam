@@ -8,7 +8,7 @@ function AllTournaments(props) {
   const [tournamentName, setTournamentName] = useState("");
   const [password, setPassword] = useState("");
   const [createdTournaments, setCreatedTournaments] = useState([]);
-  const [bracketSize, setBracketSize] = useState(4);
+  const [bracketSize, setBracketSize] = useState();
 
   useEffect(() => {
     axios.get("/api/tournaments").then((res) => {
@@ -21,6 +21,7 @@ function AllTournaments(props) {
   };
 
   const createTournament = () => {
+    if(!props.user_name) alert('Please log in to create or join tournaments')
     axios
       .post("/api/tournaments", {
         host_username: props.user_name,
@@ -142,7 +143,7 @@ function AllTournaments(props) {
                     }
                     setTournamentName("");
                     setPassword("");
-                    setBracketSize(8);
+                    setBracketSize();
                     createTournament();
                   }
                 }}
@@ -154,7 +155,6 @@ function AllTournaments(props) {
                 type="text"
                 className="selector"
                 onClick={(ev) => handleBracketSize(ev.target.value)}
-                defaultValue={4}
               >
                 <option value={4}> 4 </option>
                 <option value={8}> 8 </option>
