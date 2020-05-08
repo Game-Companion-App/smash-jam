@@ -11,10 +11,6 @@ function News() {
     setIndex(selectedIndex);
   };
 
-  // let currentDate = new Date();
-  // let apiKeyExpiration = `${currentDate.getFullYear()} -
-  // ${currentDate.getMonth() + 1}`;
-
   let today = new Date();
   let priorDate = new Date().setDate(today.getDate() - 30);
 
@@ -25,7 +21,7 @@ function News() {
       )
       .then((res) => setFeed(res.data.articles))
       .catch((err) => console.log(err));
-  }, [apiKeyExpiration]);
+  }, [priorDate]);
 
   let newFeed = feed.map((e, i) => {
     for (let i = 0; i < feed.length; i++) {

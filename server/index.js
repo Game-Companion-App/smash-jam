@@ -9,7 +9,7 @@ const http = require("http");
 const authCtrl = require("./controllers/authController");
 const fighterCtrl = require("./controllers/fighterController");
 const skinsCtrl = require("./controllers/skinsController");
-const socketCtrl = require("./controllers/socketController");
+const bracketCtrl = require("./controllers/bracketController");
 
 // .env
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
@@ -42,33 +42,27 @@ massive({
 
 //SOCKET.IO
 io.on("connection", (socket) => {
-  // socket.on('create room', () => {})
+  socket.on('createTournament', )
 
-  socket.on("join", ({ bracket_id, username }) => {
-    const { participant } = socketCtrl.addParticipant({
-      id: socket.id,
-      bracket_id,
-      username,
-    });
+  socket.on("join", ({user_name, tournament_key}) => {
+    socket.join(tournament_key);
 
-    socket.join(participant.bracket_id);
-    socket.to(`${bracket_id}`).emit("store tId", { bracket_id });
-
-    io.to(participant.bracket_id).emit("tournamentData", {
-      bracket: participant.bracket_id,
-      participants: socketCtrl.getParticipantsInBracket(participant.bracket_id),
-    });
+    socket.emit('message', { user: 'Admin', text: `-${user_name} has joined the tournament-`});
+    
+    io.to(tournament_key).emit("tournamentData", {participants: user_name});
   });
 
   socket.on("disconnect", () => {
     console.log("participant left");
   });
+
 });
 
 // AUTH ENDPOINTS
-app.post("/api/register", authCtrl.register);
-app.post("/api/login", authCtrl.login);
-app.post("/api/logout", authCtrl.logout);
+app.post("/auth/register", authCtrl.register);
+app.post("/auth/login", authCtrl.login);
+app.post("/auth/logout", authCtrl.logout);
+app.get('/auth/user', authCtrl.getCurrentUser)
 
 // FIGHTER ENDPOINTS
 app.get("/api/fighters", fighterCtrl.getAllFighters);
@@ -80,6 +74,8 @@ app.get("/api/dlc", fighterCtrl.getDLCFighters);
 app.get("/api/skins/:id", skinsCtrl.getFighterSkin);
 
 // TOURNAMENT ENDPOINTS
-app.get("/api/tournaments", socketCtrl.getTournaments);
-app.post("/api/tournaments", socketCtrl.createTournament);
-app.delete("/api/tournaments/:id", socketCtrl.deleteTournament);
+app.get("/api/tournaments", bracketCtrl.getTournaments);
+app.post("/api/tournaments", bracketCtrl.createTournament);
+app.delete("/api/tournaments/:id", bracketCtrl.deleteTournament);
+
+// BRACKET ENDPOINTS
