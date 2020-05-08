@@ -179,6 +179,15 @@ hr {
   font-size: 1.3rem;
 }
 
+.delete-button {
+  height: 50px;
+  width: 85px;
+  background-color: red;
+  color: white;
+  font-size: 1.3rem;
+  margin-left: -120px;
+}
+
 .table-titles {
   display: flex;
   width: 80vw;
