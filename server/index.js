@@ -9,7 +9,7 @@ const http = require("http");
 const authCtrl = require("./controllers/authController");
 const fighterCtrl = require("./controllers/fighterController");
 const skinsCtrl = require("./controllers/skinsController");
-const bracketCtrl = require("./controllers/bracketController");
+const tournamentCtrl = require("./controllers/tournamentController");
 
 // .env
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
@@ -74,8 +74,11 @@ app.get("/api/dlc", fighterCtrl.getDLCFighters);
 app.get("/api/skins/:id", skinsCtrl.getFighterSkin);
 
 // TOURNAMENT ENDPOINTS
-app.get("/api/tournaments", bracketCtrl.getTournaments);
-app.post("/api/tournaments", bracketCtrl.createTournament);
-app.delete("/api/tournaments/:id", bracketCtrl.deleteTournament);
+app.get("/api/tournaments", tournamentCtrl.getTournaments);
+app.post("/api/tournaments", tournamentCtrl.createTournament);
+app.delete("/api/tournaments/:id", tournamentCtrl.deleteTournament);
 
-// BRACKET ENDPOINTS
+
+
+
+app.put("/api/tournaments", tournamentCtrl.updateBracket);

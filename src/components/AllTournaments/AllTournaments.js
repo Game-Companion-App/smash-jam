@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect} from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import "./AllTournaments.scss";
@@ -8,7 +8,7 @@ function AllTournaments(props) {
   const [tournamentName, setTournamentName] = useState("");
   const [password, setPassword] = useState("");
   const [createdTournaments, setCreatedTournaments] = useState([]);
-  const [bracketSize, setBracketSize] = useState();
+  const [bracketSize, setBracketSize] = useState(0);
   const [fighters, setFighters] = useState([]);
   const [newFighter, setNewFighter] = useState("");
 
@@ -41,7 +41,7 @@ function AllTournaments(props) {
   }, []);
 
   const handleBracketSize = (val) => {
-    return bracketSize === val ? null : setBracketSize(val);
+    return setBracketSize(+val)
   };
 
   const createTournament = () => {
@@ -82,7 +82,6 @@ function AllTournaments(props) {
           <select
             style={{ height: "30px", width: "180px" }}
             onChange={(ev) => setNewFighter(ev.target.value)}
-            value={newFighter}
           >
             <option value={0}> - Select A Fighter </option>
             {fighterOptions}
@@ -179,14 +178,15 @@ function AllTournaments(props) {
                 onChange={(ev) => setPassword(ev.target.value)}
                 onKeyUp={(ev) => {
                   if (ev.keyCode === 13) {
-                    if (!tournamentName || !password) {
+                    if (!tournamentName || !password || bracketSize === 0) {
                       alert("Please complete all fields");
                       ev.preventDefault();
+                    } else {
+                      createTournament();
+                      setTournamentName("");
+                      setPassword("");
+                      setBracketSize(0);
                     }
-                    setTournamentName("");
-                    setPassword("");
-                    setBracketSize();
-                    createTournament();
                   }
                 }}
               />
@@ -199,6 +199,7 @@ function AllTournaments(props) {
                 className="selector"
                 onClick={(ev) => handleBracketSize(ev.target.value)}
               >
+                <option value={0}>-</option>
                 <option value={4}>4</option>
                 <option value={8}>8</option>
                 <option value={16}>16</option>
@@ -208,14 +209,15 @@ function AllTournaments(props) {
             </div>
             <Link
               onClick={(ev) => {
-                if (!tournamentName || !password) {
+                if (!tournamentName || !password || bracketSize === 0) {
                   alert("Please complete all fields");
                   ev.preventDefault();
+                } else {
+                  createTournament();
+                  setTournamentName("");
+                  setPassword("");
+                  setBracketSize(0);
                 }
-                setTournamentName("");
-                setPassword("");
-                setBracketSize(8);
-                createTournament();
               }}
               to="/tournaments"
             >
