@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import "./Chat.scss";
 
 export default () => {
   const [chatSize, setChatSize] = useState("collapsed");
-
-
-
-
-  
 
   // return id ? (
   //   <section className={`chat chat-${chatSize}`}>

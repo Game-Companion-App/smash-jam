@@ -8,7 +8,6 @@ function AllTournaments(props) {
   const [tournamentName, setTournamentName] = useState("");
   const [password, setPassword] = useState("");
   const [createdTournaments, setCreatedTournaments] = useState([]);
-  const [bracketSize, setBracketSize] = useState(0);
   const [fighters, setFighters] = useState([]);
   const [newFighter, setNewFighter] = useState("");
 
@@ -40,17 +39,12 @@ function AllTournaments(props) {
       .catch((err1) => console.log(err1));
   }, []);
 
-  const handleBracketSize = (val) => {
-    return setBracketSize(+val);
-  };
-
   const createTournament = () => {
     axios
       .post("/api/tournaments", {
         host_username: props.user_name,
         tournament_name: tournamentName,
         tournament_password: password,
-        tournament_size: bracketSize,
       })
       .then((res) => {
         let key = res.data;
@@ -65,27 +59,11 @@ function AllTournaments(props) {
     });
   };
 
-  let fighterOptions = fighters.sort().map((fighter) => {
-    return <option value={fighter[1]}> {fighter[1]} </option>;
-  });
-
   let tournamentList = createdTournaments.map((tournament, i) => {
     return (
       <div className="tournament-list-item" key={i}>
         <div className="t-name">
           <h5>{tournament.tournament_name}</h5>
-        </div>
-        <div className="b-size">
-          <h5>{tournament.tournament_size}</h5>
-        </div>
-        <div className="f-name">
-          <select
-            style={{ height: "30px", width: "180px" }}
-            onChange={(ev) => setNewFighter(ev.target.value)}
-          >
-            <option value={0}> - Select A Fighter </option>
-            {fighterOptions}
-          </select>
         </div>
         <div className="p-word">
           <input
@@ -104,6 +82,9 @@ function AllTournaments(props) {
             }}
           />
         </div>
+
+        <div className="line-break"></div>
+
         <Link
           onClick={(ev) => {
             if (password !== tournament.tournament_password) {
@@ -117,14 +98,16 @@ function AllTournaments(props) {
             Join
           </button>
         </Link>
-        <hr />
+
         <button
+          className="delete-button"
           onClick={() => {
             deleteTournament(tournament.tournament_id);
           }}
         >
           Delete
         </button>
+        <hr />
       </div>
     );
   });
@@ -171,6 +154,7 @@ function AllTournaments(props) {
                 onChange={(ev) => setTournamentName(ev.target.value)}
               />{" "}
             </div>
+            <br />
             <div>
               <h4>Password:</h4>
               <input
@@ -178,45 +162,28 @@ function AllTournaments(props) {
                 onChange={(ev) => setPassword(ev.target.value)}
                 onKeyUp={(ev) => {
                   if (ev.keyCode === 13) {
-                    if (!tournamentName || !password || bracketSize === 0) {
+                    if (!tournamentName || !password) {
                       alert("Please complete all fields");
                       ev.preventDefault();
                     } else {
                       createTournament();
                       setTournamentName("");
                       setPassword("");
-                      setBracketSize(0);
                     }
                   }
                 }}
               />
             </div>
-            <div>
-              <h4>Bracket Size:</h4>
-              <select
-                style={{ height: "30px", width: "50px" }}
-                type="text"
-                className="selector"
-                onClick={(ev) => handleBracketSize(ev.target.value)}
-              >
-                <option value={0}>-</option>
-                <option value={4}>4</option>
-                <option value={8}>8</option>
-                <option value={16}>16</option>
-                <option value={32}>32</option>
-                <option value={64}>64</option>
-              </select>
-            </div>
+
             <Link
               onClick={(ev) => {
-                if (!tournamentName || !password || bracketSize === 0) {
+                if (!tournamentName || !password) {
                   alert("Please complete all fields");
                   ev.preventDefault();
                 } else {
                   createTournament();
                   setTournamentName("");
                   setPassword("");
-                  setBracketSize(0);
                 }
               }}
               to="/tournaments"
@@ -232,12 +199,6 @@ function AllTournaments(props) {
           <div className="table-titles">
             <div className="title-name">
               <h4>Tournament Name:</h4>
-            </div>
-            <div className="title-size">
-              <h4>Bracket Size:</h4>
-            </div>
-            <div className="title-fighter">
-              <h4>Fighter:</h4>
             </div>
             <div className="title-password">
               <h4>Password:</h4>
